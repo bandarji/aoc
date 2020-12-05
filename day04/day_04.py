@@ -18,7 +18,9 @@ def get_input():
         return input_file.read().split('\n')
 
 def valid_passport(person):
-    print(person)
+    required_fields = 'byr iyr eyr hgt hcl ecl pid'.split()
+    person = {e.split(':')[0]: e.split(':')[1] for e in person.strip().split()}
+    return all(f in person for f in required_fields)
 
 def count_valid_passports(info):
     count = 0
@@ -30,5 +32,7 @@ def count_valid_passports(info):
         else:
             person += f' {text}'
     count += 1 if valid_passport(person) else 0
+    return count
 
-valid_passports = count_valid_passports(TEST_INPUT)
+print(count_valid_passports(TEST_INPUT))
+print(count_valid_passports(get_input()))
