@@ -120,3 +120,4 @@ Fix the program so that it terminates normally by changing exactly one jmp
 (to nop) or nop (to jmp). What is the value of the accumulator after the
 program terminates?
 
+501
