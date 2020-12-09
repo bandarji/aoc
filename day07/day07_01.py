@@ -17,25 +17,30 @@ faded blue bags contain no other bags.
 dotted black bags contain no other bags."""
 
 
-count = lambda bag: 1 + sum(quantity * count(bag_name) for bag_name, quantity in bags.get(bag, {}).items())
-search = lambda key: parents[key] | {x for c in parents[key] for x in search(c)}
-
-
 def read_file():
     with open('input.txt') as input_file:
         return input_file.read()
 
+
 def important_entries(content):
     return re.findall(REGEX_CONTAINER_BAGS, content)
+
 
 def bags_from_entries(entries):
     return {bag: {bag_: int(quantity) for quantity, bag_ in re.findall(REGEX_BAG_NUMBER, bag_info)}
             for bag, bag_info in entries}
 
+
 def find_parents(bags):
     return {bag: {bag_ for bag_, qty in bags.items() if bag in qty} for bag in bags}
 
 
+def search(bag_name):
+    return parents[bag_name] | {k for b in parents[bag_name] for k in search(b)}
+
+
+def count(bag_name):
+    return sum(quantity * count(bag) for bag, quantity in bags.get(bag_name, {}).items()) + 1
 
 entries = important_entries(TEST_RULES)
 bags = bags_from_entries(entries)
