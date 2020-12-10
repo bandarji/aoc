@@ -103,3 +103,4 @@ in this contiguous range; in this example, these are 15 and 47, producing 62.
 
 What is the encryption weakness in your XMAS-encrypted list of numbers?
 
+51152360
