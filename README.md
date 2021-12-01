@@ -1,4 +1,3 @@
-# Advent of Code 2020
+# Advent of Code
 
 [Advent of Code Site](https://adventofcode.com/)
-
