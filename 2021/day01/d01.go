@@ -31,7 +31,7 @@ func increases_single(readings []int) int {
 		if index == 0 {
 			continue
 		}
-		if entry > readings[index - 1] {
+		if entry > readings[index-1] {
 			increases++
 		}
 	}
@@ -39,26 +39,22 @@ func increases_single(readings []int) int {
 }
 
 func increases_window(readings []int) int {
-	var windowed_readings []int
+	var windowedReadings []int
 	var total int
 	for index, entry := range readings {
-		if index < 3 {
+		if index < 2 {
 			continue
 		}
-		total = entry + readings[index - 1] + readings[index - 2]
-		windowed_readings = append(windowed_readings, total)
+		total = entry + readings[index-1] + readings[index-2]
+		windowedReadings = append(windowedReadings, total)
 	}
-	return increases_single(windowed_readings)
+	return increases_single(windowedReadings)
 }
 
 func main() {
 	readings := obtain_readings("input.txt")
-	// readings = convert_readings(readings)
 	increases := increases_single(readings)
 	fmt.Println(increases)
 	increases = increases_window(readings)
 	fmt.Println(increases)
 }
-
-
-// number, err := strconv.Atoi(str)
