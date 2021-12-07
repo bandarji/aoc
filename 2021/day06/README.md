@@ -62,7 +62,4 @@ How many lanternfish would there be after 256 days?
 
 Answer:
 
-
-Although it hasn't changed, you can still get your puzzle input.
-
-You can also [Share] this puzzle.
+1732731810807
