@@ -2,6 +2,7 @@ use aoc2015::input::read_file;
 use aoc2015::day01::{day011, day012};
 use aoc2015::day02::{day021, day022};
 use aoc2015::day03::{day031, day032};
+use aoc2015::day04::{day041, day042};
 
 fn day01() {
     let filename: &str = "day01_input.txt";
@@ -27,8 +28,14 @@ fn day03() {
     println!("Answer [3-2]: {}", day032(input2));
 }
 
+fn day04() {
+    println!("Answer [4-1]: {}", day041(String::from("yzbqklnj")));
+    println!("Answer [4-2]: {}", day042(String::from("yzbqklnj")));
+}
+
 fn main() {
     day01();
     day02();
     day03();
+    day04();
 }
