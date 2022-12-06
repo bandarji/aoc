@@ -26,38 +26,28 @@ class Day:
         self.display_solutions()
 
     def solve(self):
-        self.solutions[0] = _solve1(self.input_)
-        self.solutions[1] = _solve2(self.input_)
+        self.solutions[0] = _solve(self.input_)
+        self.solutions[1] = _solve(self.input_, window_size=14)
 
     def display_solutions(self):
         print(f"{self.solutions}")
 
 
-def _solve1(input_: str) -> int:
+def _solve(input_: str, window_size: int=4) -> int:
     for i, _ in enumerate(input_):
-        if i < 4:
+        if i < window_size:
             continue
-        chars = input_[i - 4: i]
-        if len(chars) == 4 and len(set(chars)) == 4:
-            return i
-    return 0
-
-
-def _solve2(input_: str) -> int:
-    for i, _ in enumerate(input_):
-        if i < 4:
-            continue
-        chars = input_[i - 14: i]
-        if len(chars) == 14 and len(set(chars)) == 14:
+        chars = input_[i - window_size: i]
+        if len(chars) == window_size and len(set(chars)) == window_size:
             return i
     return 0
 
 
 def main():
     for test, expected in PART1_TESTS:
-        assert expected == _solve1(test)
+        assert expected == _solve(test)
     for test, expected in PART2_TESTS:
-        assert expected == _solve2(test)
+        assert expected == _solve(test, window_size=14)
     Day()
 
 
