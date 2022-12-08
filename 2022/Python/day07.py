@@ -29,8 +29,6 @@ $ ls
 5626152 d.ext
 7214296 k"""
 
-PART2_TESTS = [
-]
 
 class Day:
 
