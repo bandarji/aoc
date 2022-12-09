@@ -39,7 +39,7 @@ class Day:
 def _solve1(input_: str) -> int:
     unique_positions = set()
     head = [0, 0]
-    tail_spots = [(0, 0) for _ in range(9)]
+    tail = [0, 0]
     entries = [
         (command.split()[0], command.split()[1])
         for command in input_.split("\n")
@@ -50,11 +50,10 @@ def _solve1(input_: str) -> int:
             delta_row = 0 if direction in "LR" else 1 if direction == "D" else -1
             delta_column = 0 if direction in "UD" else 1 if direction == "R" else -1
             head = (head[0] + delta_row, head[1] + delta_column)
-            tail_spots[0] = move_tail(head, tail_spots[0])
-            for m in range(1, 9):
-                tail_spots[m] = move_tail(tail_spots[m - 1], tail_spots[m])
-                unique_positions.add(tail_spots[0])
+            tail = move_tail(head, tail)
+            unique_positions.add(tuple(tail))
     return len(unique_positions)
+
 
 
 def _solve2(input_: str) -> int:
