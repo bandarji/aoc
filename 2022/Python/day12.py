@@ -25,13 +25,25 @@ class OSPF:
         self.notvisited.remove(current)
         self.visited.append(current)
 
-    def play(self):
+    def play(self, start=None):
         self.costs = {k: 999 for k in self.notvisited}
-        self.costs[self.start] = 0
+        if not start:
+            self.costs[self.start] = 0
+        else:
+            self.costs[start] = 0
         while self.end not in self.visited:
             current = min(self.notvisited, key=self.costs.get)
             self.visit(current)
         return self.costs[self.end]
+
+    def starting_points(self):
+        points = []
+        for ri, row in enumerate(self.grid):
+            for ci, cost in enumerate(row):
+                if cost == 0:
+                    spot = (ri, ci)
+                    points.append(spot)
+        return points
 
     def assemble_travels(self):
         self.travels = {}
@@ -90,11 +102,19 @@ def _solve1(input_: str) -> int:
 
 
 def _solve2(input_: str) -> int:
-    return 0
+    costs = []
+    ospf = OSPF(input_)
+    starts = ospf.starting_points()
+    for start in starts:
+        ospf = OSPF(input_)
+        cost = ospf.play(start=start)
+        costs.append(cost)
+    return min(costs)
 
 
 def main():
     assert _solve1(TEST) == 31
+    assert _solve2(TEST) == 29
     Day()
 
 
