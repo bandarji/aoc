@@ -45,8 +45,8 @@ def top_three(input_: str) -> int:
 def main():
     for input_, expected in PART1_TESTS:
         assert expected == heaviest_elf(input_)
-    print(heaviest_elf(open("day01_input.txt").read()))
-    print(top_three(open("day01_input.txt").read()))
+    print(heaviest_elf(open("input_day01.txt").read()))
+    print(top_three(open("input_day01.txt").read()))
 
 
 if __name__ == '__main__':
