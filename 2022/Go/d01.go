@@ -19,14 +19,6 @@ func mostCarriedCalories(input string) int {
 	mostCalores := 0
 	for _, elf := range elves {
 		totalCalories := caloriesOnOneElf(elf)
-		// totalCalories := 0
-		// calorieCounts := strings.Split(elf, "\n")
-		// for _, caloriesEntry := range calorieCounts {
-		// 	if len(caloriesEntry) > 1 {
-		// 		calories, _ := strconv.Atoi(caloriesEntry)
-		// 		totalCalories += calories
-		// 	}
-		// }
 		if totalCalories > mostCalores {
 			mostCalores = totalCalories
 		}
