@@ -119,7 +119,7 @@ func main() {
 	}
 	result = d0702(TEST_INPUT)
 	if result != 24933642 {
-		errMsg := fmt.Sprintf("Failed tests: day 07 01, Received %d instead of %d", result, 95437)
+		errMsg := fmt.Sprintf("Failed tests: day 07 02, Received %d instead of %d", result, 95437)
 		log.Fatal(errMsg)
 	}
 	log.Println("Day 07 01:", d0701(input))
