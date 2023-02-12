@@ -56,6 +56,31 @@ func d0901(input string) int {
 	return len(points)
 }
 
+func d0902(input string) int {
+	points := make([]Point, 1)
+	tailSpots := make([]Point, 9)
+	head := Point{x: 0, y: 0}
+	points[0] = Point{x: 0, y: 0}
+	for _, line := range strings.Split(input, "\n") {
+		if len(line) < 2 {
+			continue
+		}
+		fields := strings.Fields(line)
+		count, _ := strconv.Atoi(fields[1])
+		for i := 0; i < count; i++ {
+			dx, dy := setDeltas(fields[0])
+			head.x += dx
+			head.y += dy
+			tailSpots[0] = moveTail(head, tailSpots[0])
+			for m := 1; m < 9; m++ {
+				tailSpots[m] = moveTail(tailSpots[m-1], tailSpots[m])
+				uniqueAdd(&points, tailSpots[8])
+			}
+		}
+	}
+	return len(points)
+}
+
 func moveTail(head, tail Point) Point {
 	dx := abs(head.x, tail.x)
 	dy := abs(head.y, tail.y)
@@ -121,10 +146,6 @@ func setDeltas(dir string) (dx, dy int) {
 	return
 }
 
-func d0902(input string) int {
-	return TEST_ANS2
-}
-
 func main() {
 	var result int = 0
 	input := common.ReadFile(INPUT_FILENAME)
@@ -135,7 +156,7 @@ func main() {
 	}
 	result = d0902(TEST_INPUT2)
 	if result != TEST_ANS2 {
-		errMsg := fmt.Sprintf("Failed tests: day 09 01, received %d instead of %d", result, TEST_ANS2)
+		errMsg := fmt.Sprintf("Failed tests: day 09 02, received %d instead of %d", result, TEST_ANS2)
 		log.Fatal(errMsg)
 	}
 	log.Println("Day 09 01:", d0901(input))
