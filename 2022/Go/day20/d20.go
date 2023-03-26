@@ -27,20 +27,19 @@ const (
 )
 
 func Day(input string, part int) (answer int) {
-	toadd := 0
 	numbers := [][2]int{}
-	multiplier := 1
-	original := GetNumbers(input)
+	original := GetNumbers(input, part)
 	numbers = append(numbers, original...)
 	length := len(numbers)
 	for t := 0; t < 10; t++ {
+		log.Printf("Time %d - %v\n", t, numbers[:5])
 		for _, element := range original {
 			if element[1] < 0 {
-				for v := 0; v < element[1]*-1; v++ {
+				for v := 0; v < (element[1]*-1)%(length-1); v++ {
 					numbers = MoveBack(numbers, length, element)
 				}
 			} else {
-				for v := 0; v < element[1]; v++ {
+				for v := 0; v < element[1]%(length-1); v++ {
 					numbers = MoveAhead(numbers, length, element)
 				}
 			}
@@ -50,11 +49,8 @@ func Day(input string, part int) (answer int) {
 		}
 	}
 	zero := FindValue(numbers, 0)
-	if part == 2 {
-		multiplier = 811589153
-	}
 	for i := 1; i <= 3; i++ {
-		answers += multiplier * numbers[(i*1000+zero)%length][1]
+		answer += numbers[(i*1000+zero)%length][1]
 	}
 	return
 }
@@ -113,10 +109,14 @@ func FindElement(numbers [][2]int, element [2]int) int {
 	return -1
 }
 
-func GetNumbers(input string) (numbers [][2]int) {
+func GetNumbers(input string, part int) (numbers [][2]int) {
+	multiplier := 1
+	if part == 2 {
+		multiplier = 811589153
+	}
 	input = strings.TrimRight(input, "\n")
 	for i, n := range strings.Split(input, "\n") {
-		numbers = append(numbers, [2]int{i, atoi(n)})
+		numbers = append(numbers, [2]int{i, multiplier * atoi(n)})
 	}
 	return
 }
@@ -146,12 +146,16 @@ func main() {
 	if !RunTest(part) {
 		log.Fatalf("Failed day %02d Part %02d\n", day, part)
 	}
+	log.Printf("Test %02d Part %02d passed\n", day, part)
 	part = 2
 	if !RunTest(part) {
 		log.Fatalf("Failed day %02d Part %02d\n", day, part)
 	}
+	log.Printf("Test %02d Part %02d passed\n", day, part)
 	content, _ := os.ReadFile(fmt.Sprintf("input_day%02d.txt", day))
+	log.Printf("%02d Part %02d starting...\n", day, 1)
 	solutions.part1 = Day(string(content), 1)
+	log.Printf("%02d Part %02d starting...\n", day, 1)
 	solutions.part2 = Day(string(content), 2)
 	log.Printf("Solutions: %d, %d\n", solutions.part1, solutions.part2)
 }
