@@ -27,7 +27,7 @@ func NiceString(s *string, part int) bool {
 			return true
 		}
 	} else {
-		if HasNonOverlapDoubleDouble(s) && HasSpacedRepeat(s) {
+		if HasTwoTwice(s) && HasSpacedRepeat(s) {
 			return true
 		}
 	}
@@ -43,16 +43,12 @@ func HasSpacedRepeat(s *string) bool {
 	return false
 }
 
-func HasNonOverlapDoubleDouble(s *string) bool {
-	count := 0
-	for i := 2; i < len(*s); i++ {
-		if (*s)[i-2] == (*s)[i-1] {
-			if (*s)[i-1] != (*s)[i] {
-				count++
-				i++
-				if count > 1 {
-					return true
-				}
+func HasTwoTwice(s *string) bool {
+	for i := 0; i < len((*s))-2; i++ {
+		match := (*s)[i : i+2]
+		for j := i + 2; j < len((*s))-1; j++ {
+			if (*s)[j:j+2] == match {
+				return true
 			}
 		}
 	}
