@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"go2016/d01"
 	"go2016/d02"
+	"go2016/d03"
 )
 
 func GetContent(day int) string {
@@ -14,7 +16,7 @@ func GetContent(day int) string {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	return string(content)
+	return strings.TrimRight(string(content), "\n")
 }
 
 func main() {
@@ -25,4 +27,7 @@ func main() {
 	content = GetContent(2)
 	log.Println("Day 02/01:", d02.Day(content, 1))
 	log.Println("Day 02/02:", d02.Day(content, 2))
+	content = GetContent(3)
+	log.Println("Day 03/01:", d03.Day(content, 1))
+	log.Println("Day 03/02:", d03.Day(content, 2))
 }
