@@ -44,7 +44,7 @@ func Day(input string, part int) int {
 	visited := map[string]bool{}
 	facing := 0 // 0 -> N, 1 -> E, 2 -> S, 3 -> W
 	x, y := 0, 0
-	position := NormalizePosition(x, y)
+	position := ""
 	for _, instruction := range strings.Split(input, ", ") {
 		turn, steps := ParseInstruction(instruction)
 		facing = Turn(turn, facing)

@@ -83,3 +83,76 @@ func TestTurn(t *testing.T) {
 		})
 	}
 }
+
+func TestDistance(t *testing.T) {
+	type args struct {
+		sx int
+		sy int
+		ex int
+		ey int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"distance 4/1", args{0, 0, 2, 2}, 4},
+		{"distance 4/2", args{-1, -1, 1, 1}, 4},
+		{"distance 10/1", args{0, 0, 6, 4}, 10},
+		{"distance 10/2", args{-5, 0, 0, 5}, 10},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Distance(tt.args.sx, tt.args.sy, tt.args.ex, tt.args.ey); got != tt.want {
+				t.Errorf("Distance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestAbs(t *testing.T) {
+	type args struct {
+		v1 int
+		v2 int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantA int
+	}{
+		{"positive/positive", args{1, 11}, 10},
+		{"positive/negative", args{1, -9}, 10},
+		{"negative/negative", args{-4, -14}, 10},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotA := Abs(tt.args.v1, tt.args.v2); gotA != tt.wantA {
+				t.Errorf("Abs() = %v, want %v", gotA, tt.wantA)
+			}
+		})
+	}
+}
+
+func TestDay(t *testing.T) {
+	type args struct {
+		input string
+		part  int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{"5 blocks", args{"R2, L3", 1}, 5},
+		{"2 blocks", args{"R2, R2, R2", 1}, 2},
+		{"12 blocks", args{"R5, L5, R5, R3", 1}, 12},
+		{"4 blocks", args{"R8, R4, R4, R8", 2}, 4},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Day(tt.args.input, tt.args.part); got != tt.want {
+				t.Errorf("Day() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
