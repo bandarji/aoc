@@ -9,6 +9,7 @@ import (
 	"go2016/d01"
 	"go2016/d02"
 	"go2016/d03"
+	"go2016/d04"
 )
 
 func GetContent(day int) string {
@@ -30,4 +31,7 @@ func main() {
 	content = GetContent(3)
 	log.Println("Day 03/01:", d03.Day(content, 1))
 	log.Println("Day 03/02:", d03.Day(content, 2))
+	content = GetContent(4)
+	log.Println("Day 04/01:", d04.Day(content, 1))
+	log.Println("Day 04/02:", d04.Day(content, 2))
 }
