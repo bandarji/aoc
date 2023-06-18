@@ -91,8 +91,8 @@ func Day(input string, part int) int {
 		} else if strings.HasPrefix(cmd, "rotate row") {
 			s.RotateRow(cmd)
 		}
-		s.Display()
 	}
 	s.CountLit()
+	s.Display()
 	return s.Lit
 }
