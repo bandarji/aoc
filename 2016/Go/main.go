@@ -2,10 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"strings"
-
 	"go2016/d01"
 	"go2016/d02"
 	"go2016/d03"
@@ -14,6 +10,11 @@ import (
 	"go2016/d06"
 	"go2016/d07"
 	"go2016/d08"
+	"go2016/d09"
+	"go2016/d10"
+	"log"
+	"os"
+	"strings"
 )
 
 func GetContent(day int) string {
@@ -49,4 +50,10 @@ func main() {
 	log.Println("Day 07/02:", d07.Day(content, 2))
 	content = GetContent(8)
 	log.Println("Day 08/01:", d08.Day(content, 1))
+	content = GetContent(9)
+	log.Println("Day 09/01:", d09.Day(content, 1))
+	log.Println("Day 09/02:", d09.Day(content, 2))
+	content = GetContent(10)
+	log.Println("Day 10/01:", d10.Day(content, 1))
+	log.Println("Day 10/02:", d10.Day(content, 2))
 }
