@@ -13,6 +13,7 @@ import (
 	"go2016/d09"
 	"go2016/d10"
 	"go2016/d12"
+	"go2016/d14"
 	"log"
 	"os"
 	"strings"
@@ -60,4 +61,7 @@ func main() {
 	content = GetContent(12)
 	log.Println("Day 12/01:", d12.Day(content, 1))
 	log.Println("Day 12/02:", d12.Day(content, 2))
+	content = "jlmsuwbz"
+	log.Println("Day 14/01:", d14.Day(content, 1))
+	log.Println("Day 14/02:", d14.Day(content, 2))
 }
