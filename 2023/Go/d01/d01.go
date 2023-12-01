@@ -37,7 +37,7 @@ func BuildCalibration2(s string) (total int) {
 	wordNums := [9]string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
 	value := 0
 	length := len(s)
-	for cursor := 0; cursor < length; {
+	for cursor := 0; cursor < length; cursor++ {
 		value = 0
 		char := rune(s[cursor])
 		if char >= '0' && char <= '9' {
@@ -53,7 +53,6 @@ func BuildCalibration2(s string) (total int) {
 		if value > 0 {
 			values = append(values, value)
 		}
-		cursor++
 	}
 	total = common.StrToInt(fmt.Sprintf("%d%d", values[0], values[len(values)-1]))
 	return
