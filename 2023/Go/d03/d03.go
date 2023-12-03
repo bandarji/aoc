@@ -2,44 +2,9 @@ package d03
 
 import (
 	"aoc2023/common"
+	"fmt"
 	"strings"
 )
-
-// type LocatedSymbol struct {
-// 	Y int
-// 	X int
-// }
-
-// func (s LocatedSymbol) IsAdjacent(n LocatedNumber) bool {
-// 	for x := n.X; x <= n.X+n.Length; x++ {
-// 		if (s.X == x && s.Y == y) ||
-// 			(s.X == x && s.Y == y-1) ||
-// 			(s.X == x && s.Y == y+1) {
-// 			return true
-// 		}
-// 	}
-// 	return false
-// }
-
-// type LocatedNumber struct {
-// 	Y      int
-// 	X      int
-// 	Length int
-// 	Value  int
-// 	Digits []string
-// }
-
-// func (n *LocatedNumber) Start(y, x int) {
-// 	n.Y, n.X = y, x
-// }
-
-// func (n *LocatedNumber) AddDigit(d rune) {
-// 	n.Digits = append(n.Digits, string(d))
-// }
-
-// func (n *LocatedNumber) CalcValue() {
-// 	n.Value = common.StrToInt(strings.Join(n.Digits, ""))
-// }
 
 const TEST1 string = `467..114..
 ...*......
@@ -61,22 +26,20 @@ func isGear(c rune) bool {
 }
 
 func Solve(input string, part int) (answer int) {
+	var char rune
 	schematic := [][]rune{}
+	seen := map[string]bool{}
+	deltas := [3]int{-1, 0, 1}
 	for _, line := range strings.Split(input, "\n") {
 		schematic = append(schematic, []rune(line))
 	}
-	seen := map[[2]int]bool{}
 	height := len(schematic)
 	width := len(schematic[0])
-	deltas := [3]int{-1, 0, 1}
-	var char rune
-
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
 			char = schematic[y][x]
 			if char != '.' && !isDigit(char) {
 				adj := []int{}
-				gear := isGear(schematic[y][x])
 				for _, dy := range deltas {
 					for _, dx := range deltas {
 						x := x + dx
@@ -94,9 +57,9 @@ func Solve(input string, part int) (answer int) {
 							}
 							sx += 1
 							ex := x
-							for ; ex < height && isDigit(schematic[y][ex]); ex++ {
+							for ; ex < width && isDigit(schematic[y][ex]); ex++ {
 							}
-							if seen[[2]int{y, sx}] {
+							if seen[fmt.Sprintf("%d, %d", y, sx)] {
 								continue
 							}
 							number := common.StrToInt(string(schematic[y][sx:ex]))
@@ -104,11 +67,11 @@ func Solve(input string, part int) (answer int) {
 								answer += number
 							}
 							adj = append(adj, number)
-							seen[[2]int{y, sx}] = true
+							seen[fmt.Sprintf("%d, %d", y, sx)] = true
 						}
 					}
 				}
-				if part == 2 && gear && len(adj) == 2 {
+				if part == 2 && isGear(schematic[y][x]) && len(adj) == 2 {
 					answer += adj[0] * adj[1]
 				}
 			}
