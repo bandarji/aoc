@@ -47,6 +47,7 @@ func BuildCalibration2(s string) (total int) {
 			if cursor+len(wordNum) <= length {
 				if s[cursor:cursor+len(wordNum)] == wordNum {
 					value = i + 1
+					break
 				}
 			}
 		}
