@@ -6,6 +6,7 @@ import (
 	"aoc2023/d02"
 	"aoc2023/d03"
 	"aoc2023/d04"
+	"aoc2023/d05"
 	"log"
 )
 
@@ -29,4 +30,9 @@ func main() {
 	log.Printf("Day  4, part  2 (test): %d\n", d04.Solve(d04.TEST1, 2))
 	log.Printf("Day  4, part  1: %d\n", d04.Solve(common.ReadContent(4), 1))
 	log.Printf("Day  4, part  2: %d\n\n", d04.Solve(common.ReadContent(4), 2))
+
+	log.Printf("Day  5, part  1 (test): %d\n", d05.Solve(d05.TEST1, 1))
+	log.Printf("Day  5, part  2 (test): %d\n", d05.Solve(d05.TEST1, 2))
+	log.Printf("Day  5, part  1: %d\n", d05.Solve(common.ReadContent(5), 1))
+	log.Printf("Day  5, part  2: %d\n\n", d05.Solve(common.ReadContent(5), 2))
 }
