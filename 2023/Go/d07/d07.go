@@ -8,7 +8,7 @@ import (
 
 type Hand struct {
 	Cards     string
-	Bid, Rank int
+	Bid, Type int
 }
 
 type CardsByRank1 []Hand
@@ -16,7 +16,7 @@ type CardsByRank1 []Hand
 func (c CardsByRank1) Len() int      { return len(c) }
 func (c CardsByRank1) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 func (c CardsByRank1) Less(i, j int) bool {
-	if c[i].Rank == c[j].Rank {
+	if c[i].Type == c[j].Type {
 		for i, card := range c[i].Cards {
 			card2 := rune(c[j].Cards[i])
 			if card == card2 {
@@ -26,7 +26,7 @@ func (c CardsByRank1) Less(i, j int) bool {
 		}
 		return true
 	} else {
-		return c[i].Rank < c[j].Rank
+		return c[i].Type < c[j].Type
 	}
 }
 
@@ -35,7 +35,7 @@ type CardsByRank2 []Hand
 func (c CardsByRank2) Len() int      { return len(c) }
 func (c CardsByRank2) Swap(i, j int) { c[i], c[j] = c[j], c[i] }
 func (c CardsByRank2) Less(i, j int) bool {
-	if c[i].Rank == c[j].Rank {
+	if c[i].Type == c[j].Type {
 		for i, card := range c[i].Cards {
 			card2 := rune(c[j].Cards[i])
 			if card == card2 {
@@ -45,7 +45,7 @@ func (c CardsByRank2) Less(i, j int) bool {
 		}
 		return true
 	} else {
-		return c[i].Rank < c[j].Rank
+		return c[i].Type < c[j].Type
 	}
 }
 
@@ -85,41 +85,41 @@ func cardValue2(card rune) int {
 	return int(card - '0')
 }
 
-func HandHighCard(jokers int) (rank int) {
+func HandHighCard(jokers int) (t int) {
 	switch jokers {
 	case 5:
-		rank = haveFiveOfAKind
+		t = haveFiveOfAKind
 	case 4:
-		rank = haveFiveOfAKind
+		t = haveFiveOfAKind
 	case 3:
-		rank = haveQuads
+		t = haveQuads
 	case 2:
-		rank = haveSet
+		t = haveSet
 	case 1:
-		rank = haveOnePair
+		t = haveOnePair
 	}
 	return
 }
 
-func HandPair(card rune, counts map[rune]int, jokers int) (rank int) {
-	rank = haveOnePair
+func HandPair(card rune, counts map[rune]int, jokers int) (t int) {
+	t = haveOnePair
 	if jokers == 3 {
-		rank = haveFiveOfAKind
+		t = haveFiveOfAKind
 	} else if jokers == 2 {
-		rank = haveQuads
+		t = haveQuads
 	} else {
 		for card2, count2 := range counts {
 			if card2 == card {
 				continue
 			}
 			if count2 == 3 {
-				rank = haveFullHouse
+				t = haveFullHouse
 				break
 			} else if count2 == 2 {
 				if jokers == 1 {
-					rank = haveFullHouse
+					t = haveFullHouse
 				} else {
-					rank = haveTwoPairs
+					t = haveTwoPairs
 				}
 				break
 			}
@@ -128,27 +128,27 @@ func HandPair(card rune, counts map[rune]int, jokers int) (rank int) {
 	return
 }
 
-func HandQuads(jokers int) (rank int) {
-	rank = haveQuads
+func HandQuads(jokers int) (t int) {
+	t = haveQuads
 	if jokers == 1 {
-		rank = haveFiveOfAKind
+		t = haveFiveOfAKind
 	}
 	return
 }
 
-func HandSet(card rune, counts map[rune]int, jokers int) (rank int) {
-	rank = haveSet
+func HandSet(card rune, counts map[rune]int, jokers int) (t int) {
+	t = haveSet
 	if jokers == 2 {
-		rank = haveFiveOfAKind
+		t = haveFiveOfAKind
 	} else if jokers == 1 {
-		rank = haveQuads
+		t = haveQuads
 	} else {
 		for card2, count2 := range counts {
 			if card2 == card {
 				continue
 			}
 			if count2 == 2 {
-				rank = haveFullHouse
+				t = haveFullHouse
 				break
 			}
 		}
@@ -156,7 +156,7 @@ func HandSet(card rune, counts map[rune]int, jokers int) (rank int) {
 	return
 }
 
-func RankHand(hand string, part int) (rank int) {
+func GetHandType(hand string, part int) (t int) {
 	jokers := 0
 	counts := map[rune]int{}
 	for _, card := range hand {
@@ -166,28 +166,28 @@ func RankHand(hand string, part int) (rank int) {
 		}
 		counts[card]++
 	}
-	rank = haveHighCard
+	t = haveHighCard
 	for card, count := range counts {
 		switch {
 		case count == 5:
-			rank = haveFiveOfAKind
+			t = haveFiveOfAKind
 		case count == 4:
-			rank = HandQuads(jokers)
+			t = HandQuads(jokers)
 		case count == 3:
-			rank = HandSet(card, counts, jokers)
+			t = HandSet(card, counts, jokers)
 		case count == 2:
-			rank = HandPair(card, counts, jokers)
+			t = HandPair(card, counts, jokers)
 		}
-		if jokers == 1 && rank == haveOnePair {
-			rank = haveSet
+		if jokers == 1 && t == haveOnePair {
+			t = haveSet
 		}
 		// found better than high card
-		if rank != haveHighCard {
+		if t != haveHighCard {
 			break
 		}
 	}
-	if rank == haveHighCard {
-		rank = HandHighCard(jokers)
+	if t == haveHighCard {
+		t = HandHighCard(jokers)
 	}
 	return
 }
@@ -196,8 +196,7 @@ func RankHands(input string, part int) (hands []Hand) {
 	hands = []Hand{}
 	for _, line := range strings.Split(input, "\n") {
 		fields := strings.Fields(line)
-		rank := RankHand(fields[0], part)
-		hands = append(hands, Hand{Cards: fields[0], Bid: common.StrToInt(fields[1]), Rank: rank})
+		hands = append(hands, Hand{Cards: fields[0], Bid: common.StrToInt(fields[1]), Type: GetHandType(fields[0], part)})
 	}
 	if part == 1 {
 		sort.Stable(CardsByRank1(hands))
