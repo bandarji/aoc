@@ -2,6 +2,7 @@ package d08
 
 import (
 	"aoc2023/common"
+	"fmt"
 	"strings"
 )
 
@@ -42,6 +43,7 @@ type Network struct {
 }
 
 func (n *Network) ParseInput(input string) {
+	var step, left, right string
 	for i, line := range strings.Split(input, "\n") {
 		if i == 0 {
 			n.LeftRight = line
@@ -49,8 +51,8 @@ func (n *Network) ParseInput(input string) {
 		if !strings.Contains(line, "=") {
 			continue
 		}
-		fields := strings.Fields(line)
-		n.Nodes[fields[0]] = Node{Left: fields[2][1:4], Right: fields[3][0:3]}
+		fmt.Sscanf(line, "%3s = (%3s, %3s)", &step, &left, &right)
+		n.Nodes[step] = Node{Left: left, Right: right}
 	}
 }
 
