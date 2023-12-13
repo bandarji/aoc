@@ -19,3 +19,10 @@ func GCD(n1, n2 int) int {
 	}
 	return n1
 }
+
+func AddUpInts(ints ...int) (total int) {
+	for _, number := range ints {
+		total += number
+	}
+	return
+}
