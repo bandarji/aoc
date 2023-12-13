@@ -12,6 +12,7 @@ import (
 	"aoc2023/d09"
 	"aoc2023/d10"
 	"aoc2023/d11"
+	"aoc2023/d12"
 	"log"
 )
 
@@ -58,7 +59,7 @@ func main() {
 	// log.Printf("Day  8, part  2: %d\n\n", d08.Solve(common.ReadContent(8), 2))
 
 	log.Printf("Day  9, part  1 (test 1): %d\n", d09.Solve(d09.TEST1, 1))
-	log.Printf("Day  9, part  1 (test 2): %d\n\n", d09.Solve(d09.TEST1, 2))
+	log.Printf("Day  9, part  2 (test 1): %d\n\n", d09.Solve(d09.TEST1, 2))
 	// log.Printf("Day  9, part  1: %d\n", d09.Solve(common.ReadContent(9), 1))
 	// log.Printf("Day  9, part  2: %d\n\n", d09.Solve(common.ReadContent(9), 2))
 
@@ -71,8 +72,11 @@ func main() {
 	log.Printf("Day 11, part  1 (test 1): %d\n", d11.Solve(d11.TEST1, 1, 2))
 	log.Printf("Day 11, part  2 (test 10x): %d\n", d11.Solve(d11.TEST1, 2, 10))
 	log.Printf("Day 11, part  2 (test 100x): %d\n\n", d11.Solve(d11.TEST1, 2, 100))
-	// log.Printf("Day 10, part  1 (test 2): %d\n", d10.Solve(d10.TEST2, 1))
-	// log.Printf("Day 10, part  2 (test 1): %d\n\n", d10.Solve(d10.TEST3, 2))
 	// log.Printf("Day 11, part  1: %d\n", d11.Solve(common.ReadContent(11), 1, 2))
 	// log.Printf("Day 11, part  2: %d\n\n", d11.Solve(common.ReadContent(11), 2, 1000000))
+
+	log.Printf("Day 12, part  1 (test 1): %d\n", d12.Solve(d12.TEST1, 1))
+	log.Printf("Day 12, part  2 (test 2): %d\n\n", d12.Solve(d12.TEST1, 2))
+	// log.Printf("Day 12, part  1: %d\n", d12.Solve(common.ReadContent(12), 1))
+	// log.Printf("Day 12, part  2: %d\n\n", d12.Solve(common.ReadContent(12), 2))
 }
