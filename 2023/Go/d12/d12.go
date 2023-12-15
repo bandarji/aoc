@@ -62,6 +62,13 @@ func DecrementedNum0(nums []int) (decremented []int) {
 	return
 }
 
+func CacheSet(k string, v int) int {
+	mutex.Lock()
+	Cache[k] = v
+	mutex.Unlock()
+	return v
+}
+
 func CountArrangements(pattern string, groups []int, toggle bool) int {
 	var count int
 	key := fmt.Sprintf("%s-%+v-%v", pattern, groups, toggle)
@@ -89,40 +96,25 @@ func CountArrangements(pattern string, groups []int, toggle bool) int {
 		}
 		decGroups := DecrementedNum0(groups)
 		count = CountArrangements(pattern[1:], decGroups, true)
-		mutex.Lock()
-		Cache[fmt.Sprintf("%s-%+v-%v", pattern[1:], decGroups, true)] = count
-		mutex.Unlock()
-		return count
+		return CacheSet(fmt.Sprintf("%s-%+v-%v", pattern[1:], decGroups, true), count)
 	case pattern[0] == '.':
 		if groups[0] > 0 && toggle {
 			return 0
 		}
 		if groups[0] == 0 {
 			count = CountArrangements(pattern[1:], groups[1:], false)
-			mutex.Lock()
-			Cache[fmt.Sprintf("%s-%+v-%v", pattern[1:], groups[1:], false)] = count
-			mutex.Unlock()
-			return count
+			return CacheSet(fmt.Sprintf("%s-%+v-%v", pattern[1:], groups[1:], false), count)
 		}
 		count = CountArrangements(pattern[1:], groups, false)
-		mutex.Lock()
-		Cache[fmt.Sprintf("%s-%+v-%v", pattern[1:], groups, false)] = count
-		mutex.Unlock()
-		return count
+		return CacheSet(fmt.Sprintf("%s-%+v-%v", pattern[1:], groups, false), count)
 	case toggle:
 		if groups[0] == 0 {
 			count = CountArrangements(pattern[1:], groups[1:], false)
-			mutex.Lock()
-			Cache[fmt.Sprintf("%s-%+v-%v", pattern[1:], groups[1:], false)] = count
-			mutex.Unlock()
-			return count
+			return CacheSet(fmt.Sprintf("%s-%+v-%v", pattern[1:], groups[1:], false), count)
 		}
 		decGroups := DecrementedNum0(groups)
 		count = CountArrangements(pattern[1:], DecrementedNum0(groups), true)
-		mutex.Lock()
-		Cache[fmt.Sprintf("%s-%+v-%v", pattern[1:], decGroups, true)] = count
-		mutex.Unlock()
-		return count
+		return CacheSet(fmt.Sprintf("%s-%+v-%v", pattern[1:], decGroups, true), count)
 	} // esac
 	return CountArrangements(pattern[1:], groups, false) + CountArrangements(pattern[1:], DecrementedNum0(groups), true)
 }

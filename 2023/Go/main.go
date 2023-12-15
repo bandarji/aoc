@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoc2023/common"
 	"aoc2023/d01"
 	"aoc2023/d02"
 	"aoc2023/d03"
@@ -13,6 +14,9 @@ import (
 	"aoc2023/d10"
 	"aoc2023/d11"
 	"aoc2023/d12"
+	"aoc2023/d13"
+	"aoc2023/d14"
+	"aoc2023/d15"
 	"log"
 )
 
@@ -79,4 +83,20 @@ func main() {
 	log.Printf("Day 12, part  2 (test 2): %d\n\n", d12.Solve(d12.TEST1, 2))
 	// log.Printf("Day 12, part  1: %d\n", d12.Solve(common.ReadContent(12), 1))
 	// log.Printf("Day 12, part  2: %d\n\n", d12.Solve(common.ReadContent(12), 2))
+
+	log.Printf("Day 13, part  1 (test 1): %d\n", d13.Solve(d13.TEST1, 1))
+	log.Printf("Day 13, part  2 (test 2): %d\n\n", d13.Solve(d13.TEST1, 2))
+	// log.Printf("Day 12, part  1: %d\n", d12.Solve(common.ReadContent(12), 1))
+	// log.Printf("Day 12, part  2: %d\n\n", d12.Solve(common.ReadContent(12), 2))
+
+	log.Printf("Day 14, part  1 (test 1): %d\n", d14.Solve(d14.TEST1, 1))
+	// log.Printf("Day 14, part  2 (test 2): %d\n\n", d14.Solve(d14.TEST1, 2))
+	log.Printf("Day 14, part  1: %d\n\n", d14.Solve(common.ReadContent(14), 1))
+	// log.Printf("Day 12, part  2: %d\n\n", d12.Solve(common.ReadContent(12), 2))
+
+	log.Printf("Day 15, part  1 (test 1): %d\n", d15.Solve(d15.TEST1, 1))
+	log.Printf("Day 15, part  1 (test 2): %d\n", d15.Solve(d15.TEST2, 1))
+	log.Printf("Day 15, part  2 (test 1): %d\n\n", d15.Solve(d15.TEST2, 2))
+	log.Printf("Day 15, part  1: %d\n", d15.Solve(common.ReadContent(15), 1))
+	log.Printf("Day 12, part  2: %d\n\n", d15.Solve(common.ReadContent(15), 2))
 }
