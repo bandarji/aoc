@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoc2023/common"
 	"aoc2023/d01"
 	"aoc2023/d02"
 	"aoc2023/d03"
@@ -17,6 +18,9 @@ import (
 	"aoc2023/d14"
 	"aoc2023/d15"
 	"aoc2023/d16"
+	"aoc2023/d17"
+	"aoc2023/d19"
+	"aoc2023/d21"
 	"log"
 )
 
@@ -101,7 +105,33 @@ func main() {
 	// log.Printf("Day 15, part  2: %d\n\n", d15.Solve(common.ReadContent(15), 2))
 
 	log.Printf("Day 16, part  1 (test 1): %d\n", d16.Solve(d16.TEST1, 1))
-	log.Printf("Day 16, part  2 (test 2): %d\n\n", d16.Solve(d16.TEST1, 2))
+	log.Printf("Day 16, part  2 (test 1): %d\n\n", d16.Solve(d16.TEST1, 2))
 	// log.Printf("Day 16, part  1: %d\n", d16.Solve(common.ReadContent(16), 1))
 	// log.Printf("Day 16, part  2: %d\n\n", d16.Solve(common.ReadContent(16), 2))
+
+	log.Printf("Day 17, part  1 (test 1): %d\n\n", d17.Solve(d17.TEST1, 1))
+	// log.Printf("Day 17, part  2 (test 1): %d\n\n", d17.Solve(d17.TEST1, 2))
+	// log.Printf("Day 17, part  1: %d\n", d17.Solve(common.ReadContent(17), 1))
+	// log.Printf("Day 17, part  2: %d\n\n", d17.Solve(common.ReadContent(17), 2))
+
+	log.Printf("Day 19, part  1 (test 1): %d\n", d19.Solve(d19.TEST1, 1))
+	log.Printf("Day 19, part  2 (test 1): %d\n\n", d19.Solve(d19.TEST1, 2))
+	// log.Printf("Day 19, part  1: %d\n", d19.Solve(common.ReadContent(19), 1))
+	// log.Printf("Day 19, part  2: %d\n\n", d19.Solve(common.ReadContent(19), 2))
+
+	log.Printf("Day 21, part  1 (test 1): %d\n", d21.Solve(d21.TEST1, 6, 1))
+	// log.Printf("Day 21, part  2 (test 1): %d\n\n", d21.Solve(d21.TEST1, 2))
+	// In exactly 6 steps, he can still reach 16 garden plots.
+	// In exactly 10 steps, he can reach any of 50 garden plots.
+	// In exactly 50 steps, he can reach 1594 garden plots.
+	// In exactly 100 steps, he can reach 6536 garden plots.
+	// In exactly 500 steps, he can reach 167004 garden plots.
+	// In exactly 1000 steps, he can reach 668697 garden plots.
+	// In exactly 5000 steps, he can reach 16733044 garden plots.
+	// for _, test := range []int{6, 10, 50, 100, 500, 1000, 5000} {
+	// 	log.Printf("In exactly %d steps, he can reach %d garden plots.", test, d21.Solve(d21.TEST1, test, 2))
+	// }
+	log.Print("")
+	log.Printf("Day 21, part  1: %d\n", d21.Solve(common.ReadContent(21), 64, 1))
+	log.Printf("Day 21, part  2: %d\n\n", d21.Solve(common.ReadContent(21), 26501365, 2))
 }
