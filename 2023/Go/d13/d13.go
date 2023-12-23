@@ -1,7 +1,6 @@
 package d13
 
 import (
-	"log"
 	"slices"
 	"strings"
 )
@@ -22,72 +21,135 @@ const TEST1 string = `#.##..##.
 ..##..###
 #....#..#`
 
-func GetAbove(s []string, r int) []string {
-	if r >= len(s) {
-		return s
-	}
-	rows := s[0:r]
-	slices.Reverse(rows)
-	return rows
-}
-
-func GetBelow(s []string, r int) []string {
-	if r < 1 {
-		return s
-	}
-	return s[r:]
-}
-
-func SummarizeReflections(pattern []string, part int) int {
-	for r := 1; r < len(pattern); r++ {
-		above := GetAbove(pattern, r)
-		below := GetBelow(pattern, r)
-		aboveLen := len(above)
-		belowLen := len(below)
-		log.Printf("above=%+v, below=%+v, lengths=%d/%d", above, below, aboveLen, belowLen)
-		if aboveLen < len(below) {
-			below = below[0:aboveLen]
-		}
-		if belowLen < len(above) {
-			above = above[0:belowLen]
-		}
-		if slices.Equal(above, below) {
-			return r
-		}
-	}
-	return 0
-}
-
-func Solve(input string, part int) (answer int) {
-	for _, pattern := range strings.Split(input, "\n\n") {
-		answer += SummarizeReflections(strings.Split(pattern, "\n"), part)
-		break
+func Part1(patterns [][][]string) (sum int) {
+	for _, pattern := range patterns {
+		vert, hori := Mirrors(pattern)
+		sum += hori*100 + vert
 	}
 	return
 }
 
-// def find_mirror(grid):
-//     for r in range(1, len(grid)):
-//         above = grid[:r][::-1]
-//         below = grid[r:]
+func Part2(patterns [][][]string) (sum int) {
+	for _, pattern := range patterns {
+		vert, hori := Smudged(pattern)
+		sum += hori*100 + vert
+	}
+	return
+}
 
-//         above = above[:len(below)]
-//         below = below[:len(above)]
+func Smudged(pattern [][]string) (vert, hori int) {
+	changes := []int{}
+	count := 0
+	half := len(pattern) / 2
+	for i := 0; i < len(pattern[0])-1; i++ {
+		count = 0
+		for x := i; x >= 0; x-- {
+			if i+i+1-x > len(pattern[0])-1 {
+				break
+			}
+			for y := 0; y < len(pattern); y++ {
+				if pattern[y][x] != pattern[y][i+i+1-x] {
+					count++
+				}
+			}
+		}
+		if count == 1 {
+			changes = append(changes, i+1)
+		}
+	}
+	vert = MinimumDistance(changes, half)
+	changes = []int{}
+	for i := 0; i < len(pattern)-1; i++ {
+		count = 0
+		for y := 1; y >= 0; y-- {
+			if i+i+1-y > len(pattern)-1 {
+				break
+			}
+			for x := 0; x < len(pattern[0]); x++ {
+				if pattern[y][x] != pattern[i+i+1-y][x] {
+					count++
+				}
+			}
+		}
+		if count == 1 {
+			changes = append(changes, i+1)
+		}
+	}
+	hori = MinimumDistance(changes, half)
+	return
+}
 
-//         if above == below:
-//             return r
+func MinimumDistance(sources []int, dist int) (minimum int) {
+	shortest := 1<<63 - 1
+	for _, source := range sources {
+		distance := source - dist
+		if distance < 0 {
+			distance *= -1 // absolute
+		}
+		if distance < shortest {
+			shortest = distance
+			minimum = source
+		}
+	}
+	return
+}
 
-//     return 0
+func Mirrors(pattern [][]string) (vert, hori int) {
+	matches := []int{}
+	half := len(pattern) / 2
+	match := false
+	for i := 0; i < len(pattern)-1; i++ {
+		match = true
+		for y := i; y >= 0; y-- {
+			if i+i+1-y > len(pattern)-1 {
+				break
+			}
+			if !slices.Equal(pattern[y], pattern[i+i+1-y]) {
+				match = false
+				break
+			}
+		}
+		if match {
+			matches = append(matches, i+1)
+		}
+	}
+	hori = MinimumDistance(matches, half)
+	matches = []int{}
+	for i := 0; i < len(pattern[0])-1; i++ {
+		match = true
+		for x := i; x >= 0; x-- {
+			if i+i+1-x > len(pattern[0])-1 {
+				break
+			}
+			for y := 0; y < len(pattern); y++ {
+				if pattern[y][x] != pattern[y][i+i+1-x] {
+					match = false
+					break
+				}
+			}
+		}
+		if match {
+			matches = append(matches, i+1)
+		}
+	}
+	vert = MinimumDistance(matches, half)
+	return
+}
 
-// total = 0
-
-// for block in open(0).read().split("\n\n"):
-//     grid = block.splitlines()
-
-//     row = find_mirror(grid)
-//     total += row * 100
-
-//     col = find_mirror(list(zip(*grid)))
-//     total += col
-
-// print(total)
+func Solve(input string, part int) (answer int) {
+	patterns := [][][]string{}
+	pattern := [][]string{}
+	for _, block := range strings.Split(input, "\n\n") {
+		for _, line := range strings.Split(block, "\n") {
+			pattern = append(pattern, strings.Split(line, ""))
+		}
+		patterns = append(patterns, pattern)
+		pattern = [][]string{}
+	}
+	if part == 1 {
+		answer = Part1(patterns)
+	} else {
+		answer = Part2(patterns)
+	}
+	return
+}
