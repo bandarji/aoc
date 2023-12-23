@@ -26,3 +26,18 @@ func AddUpInts(ints ...int) (total int) {
 	}
 	return
 }
+
+func GeneratePrimes(count int) (primes []int) {
+	primes = []int{}
+	b := make([]bool, count)
+	for i := 2; i < count; i++ {
+		if b[i] {
+			continue
+		}
+		primes = append(primes, i)
+		for k := i * i; k < count; k += i {
+			b[k] = true
+		}
+	}
+	return
+}
