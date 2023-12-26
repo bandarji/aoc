@@ -21,6 +21,10 @@ import (
 	"aoc2023/d17"
 	"aoc2023/d19"
 	"aoc2023/d21"
+	"aoc2023/d22"
+	"aoc2023/d23"
+	"aoc2023/d24"
+	"aoc2023/d25"
 	"log"
 )
 
@@ -132,6 +136,27 @@ func main() {
 	// 	log.Printf("In exactly %d steps, he can reach %d garden plots.", test, d21.Solve(d21.TEST1, test, 2))
 	// }
 	log.Print("")
-	log.Printf("Day 21, part  1: %d\n", d21.Solve(common.ReadContent(21), 64, 1))
-	log.Printf("Day 21, part  2: %d\n\n", d21.Solve(common.ReadContent(21), 26501365, 2))
+	// log.Printf("Day 21, part  1: %d\n", d21.Solve(common.ReadContent(21), 64, 1))
+	// log.Printf("Day 21, part  2: %d\n\n", d21.Solve(common.ReadContent(21), 26501365, 2))
+
+	log.Printf("Day 22, part  1 (test 1): %d\n", d22.Solve(d22.TEST1, 1))
+	log.Printf("Day 22, part  2 (test 1): %d\n\n", d22.Solve(d22.TEST1, 2))
+	log.Printf("Day 22, part  1: %d\n", d22.Solve(common.ReadContent(22), 1))
+	log.Printf("Day 22, part  2: %d\n\n", d22.Solve(common.ReadContent(22), 2))
+
+	log.Printf("Day 23, part  1 (test 1): %d\n", d23.Solve(d23.TEST1, 1))
+	// log.Printf("Day 23, part  2 (test 1): %d\n\n", d23.Solve(d23.TEST1, 2))
+	// log.Printf("Day 23, part  1: %d\n", d23.Solve(common.ReadContent(23), 1))
+	// log.Printf("Day 23, part  2: %d\n\n", d23.Solve(common.ReadContent(23), 2))
+
+	log.Printf("Day 24, part  1 (test 1): %d\n", d24.Solve(d24.TEST1, 1))
+	// log.Printf("Day 24, part  2 (test 1): %d\n\n", d24.Solve(d24.TEST1, 2))
+	// log.Printf("Day 24, part  1: %d\n", d24.Solve(common.ReadContent(24), 1))
+	// log.Printf("Day 24, part  2: %d\n\n", d24.Solve(common.ReadContent(24), 2))
+
+	log.Print("")
+	log.Printf("Day 25, part  1 (test 1): %d\n", d25.Solve(d25.TEST1, 1))
+	// log.Printf("Day 24, part  2 (test 1): %d\n\n", d24.Solve(d24.TEST1, 2))
+	log.Printf("Day 25, part  1: %d\n", d25.Solve(common.ReadContent(25), 1))
+	// log.Printf("Day 24, part  2: %d\n\n", d24.Solve(common.ReadContent(24), 2))
 }
