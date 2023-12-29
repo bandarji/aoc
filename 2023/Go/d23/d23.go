@@ -1,6 +1,7 @@
 package d23
 
 import (
+	"fmt"
 	"log"
 	"strings"
 )
@@ -29,89 +30,71 @@ const TEST1 string = `#.#####################
 #.....###...###...#...#
 #####################.#`
 
-var visited = make(map[Point]bool)
-
 type Point struct {
-	y, x, d int
+	y, x int
 }
 
-func Pop(l *[]Point) Point {
-	c := len(*l)
-	e := (*l)[c-1]
-	*l = (*l)[:c-1]
-	return e
+type Place struct {
+	d int
+	p Point
 }
 
-func GetEndPoints(grid []string) (start, end Point) {
-	start = Point{y: 0, x: strings.Index(grid[0], "."), d: 0}
-	end = Point{y: len(grid) - 1, x: strings.Index(grid[len(grid)-1], "."), d: 0}
-	return
+func InGrid(grid *[]string, y, x int) bool {
+	return y >= 0 && y < len(*grid) && x >= 0 && x < len((*grid)[0])
 }
 
-func FindDecisionPoints(grid []string, start, end Point) (points []Point) {
-	points = []Point{start, end}
-	for y := 0; y < len(grid); y++ {
-		for x := 0; x < len(grid[0]); x++ {
-			if grid[y][x] == '#' {
-				continue
-			}
-			neighbors := 0
-			for _, np := range []Point{{y - 1, x, 0}, {y + 1, x, 0}, {y, x - 1, 0}, {y, x + 1, 0}} {
-				if np.x >= 0 && np.y >= 0 && np.x < len(grid[0]) && np.y < len(grid) && grid[np.y][np.x] != '#' {
-					neighbors++
-				}
-			}
-			if neighbors >= 3 {
-				points = append(points, Point{y, x, 0})
-			}
-		}
-	}
-	return
-}
-
-func BuildGraph(grid []string, points []Point) {
+func LongestHike(grid []string, start, end Point) (answer int) {
+	steps := []int{}
+	visited := map[Point]bool{}
 	dirs := map[byte][]Point{
-		'^': {{-1, 0, 0}},
-		'v': {{1, 0, 0}},
-		'<': {{0, -1, 0}},
-		'>': {{0, 1, 0}},
-		'.': {{-1, 0, 0}, {1, 0, 0}, {0, -1, 0}, {0, 1, 0}},
+		'^': {{-1, 0}},
+		'v': {{1, 0}},
+		'<': {{0, -1}},
+		'>': {{0, 1}},
+		'.': {{-1, 0}, {1, 0}, {0, -1}, {0, 1}},
 		'#': {},
 	}
-	graph := map[Point]map[Point]int{}
-	for _, point := range points {
-		graph[point] = map[Point]int{}
-	}
-	for _, spoint := range points {
-		stack := []Point{spoint}
-		visited[Point{y: spoint.y, x: spoint.x, d: spoint.d}] = true
-		for len(stack) > 0 {
-			p := Pop(&stack)
-			if p.d != 0 && visited[Point{p.y, p.x, 0}] {
-				graph[Point{spoint.y, spoint.x, spoint.d}][Point{p.y, p.x, p.d}] = p.d
+	q := []Place{{0, start}}
+	for len(q) > 0 {
+		place := q[0]
+		q = q[1:]
+		d, sy, sx := place.d, place.p.y, place.p.x
+		for _, dp := range dirs[grid[sy][sx]] {
+			ny, nx := sy+dp.y, sx+dp.x
+			if !InGrid(&grid, ny, nx) || grid[ny][nx] == '#' || visited[Point{ny, nx}] {
 				continue
 			}
-			for _, dp := range dirs[grid[p.y][p.x]] {
-				np := Point{y: p.y + dp.y, x: p.x + dp.x, d: 0}
-				if np.x >= 0 && np.y >= 0 && np.x < len(grid[0]) && np.y < len(grid) && grid[np.y][np.x] != '#' && !visited[Point{y: np.y, x: np.x, d: 0}] {
-					stack = append(stack, Point{y: np.y, x: np.x, d: spoint.d + 1})
-					visited[np] = true
-				}
+			// DisplayGrid(grid, visited)
+			q = append(q, Place{d + 1, Point{ny, nx}})
+			if ny == end.y && nx == end.x {
+				steps = append(steps, d+1)
 			}
 		}
+		visited[Point{sy, sx}] = true
+	}
+	log.Printf("steps=%+v", steps)
+	return
+}
 
+func DisplayGrid(grid []string, visited map[Point]bool) {
+	fmt.Println("")
+	for y := 0; y < len(grid); y++ {
+		for x := 0; x < len(grid[0]); x++ {
+			if visited[Point{y, x}] {
+				fmt.Print("O")
+			} else {
+				fmt.Print(string(grid[y][x]))
+			}
+		}
+		fmt.Println("")
 	}
-	for k, v := range graph {
-		log.Printf("k=%+v v=%+v", k, v)
-	}
-	// log.Printf("graph=%+v", graph)
+	log.Print("")
 }
 
 func Solve(input string, part int) (answer int) {
 	grid := strings.Split(input, "\n")
-	start, end := GetEndPoints(grid)
-	decisionPoints := FindDecisionPoints(grid, start, end)
-	BuildGraph(grid, decisionPoints)
-	log.Printf("start, end = %+v %+v\npoints = %+v", start, end, decisionPoints)
+	start := Point{0, strings.Index(grid[0], ".")}
+	end := Point{len(grid) - 1, strings.Index(grid[len(grid)-1], ".")}
+	answer = LongestHike(grid, start, end)
 	return
 }
