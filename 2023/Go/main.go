@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aoc2023/common"
 	"aoc2023/d01"
 	"aoc2023/d02"
 	"aoc2023/d03"
@@ -19,6 +18,7 @@ import (
 	"aoc2023/d15"
 	"aoc2023/d16"
 	"aoc2023/d17"
+	"aoc2023/d18"
 	"aoc2023/d19"
 	"aoc2023/d21"
 	"aoc2023/d22"
@@ -132,8 +132,14 @@ func main() {
 	log.Printf("Day 17, part  1 (test 1): %d", d17.Solve(d17.TEST1, 1))
 	log.Printf("Day 17, part  2 (test 1): %d", d17.Solve(d17.TEST1, 2))
 	log.Printf("Day 17, part  2 (test 2): %d", d17.Solve(d17.TEST2, 2))
-	log.Printf("Day 17, part  1: %d", d17.Solve(common.ReadContent(17), 1))
-	log.Printf("Day 17, part  2: %d", d17.Solve(common.ReadContent(17), 2))
+	// log.Printf("Day 17, part  1: %d", d17.Solve(common.ReadContent(17), 1))
+	// log.Printf("Day 17, part  2: %d", d17.Solve(common.ReadContent(17), 2))
+
+	log.Print("")
+	log.Printf("Day 18, part  1 (test 1): %d", d18.Solve(d18.TEST1, 1))
+	log.Printf("Day 18, part  2 (test 1): %d", d18.Solve(d18.TEST1, 2))
+	// log.Printf("Day 18, part  1: %d", d18.Solve(common.ReadContent(18), 1))
+	// log.Printf("Day 18, part  2: %d", d18.Solve(common.ReadContent(18), 2))
 
 	log.Print("")
 	log.Printf("Day 19, part  1 (test 1): %d", d19.Solve(d19.TEST1, 1))
