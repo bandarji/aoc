@@ -64,7 +64,7 @@ func LongestHike(grid []string, start, end Point) (answer int) {
 			if !InGrid(&grid, ny, nx) || grid[ny][nx] == '#' || visited[Point{ny, nx}] {
 				continue
 			}
-			DisplayGrid(grid, visited)
+			// DisplayGrid(grid, visited)
 			q = append(q, Place{d + 1, Point{ny, nx}})
 			if ny == end.y && nx == end.x {
 				steps = append(steps, d+1)
