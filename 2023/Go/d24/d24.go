@@ -1,6 +1,7 @@
 package d24
 
 import (
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -66,8 +67,38 @@ func Intersects(s1, s2 [6]float64) ([2]float64, bool) {
 	return [2]float64{s1[px] + s1[vx]*cp, s1[py] + s1[vy]*cp}, true
 }
 
+func MatchVelocity(dims int, p1, p2, v1 float64) (matches []int) {
+	matches = []int{}
+	pp := int(p1 - p2)
+	pv := int(v1)
+	for v := -dims; v < dims; v++ {
+		if v != pv && pp%(v-pv) == 0 {
+			matches = append(matches, v)
+		}
+	}
+	return
+}
+
+func Intersect(m1, m2 []int) (intersections []int) {
+	intersections = []int{}
+	for _, value := range m1 {
+		if slices.Contains(m2, value) {
+			intersections = append(intersections, value)
+		}
+	}
+	return
+}
+
+func ThrowOneStone(stones [][6]float64) (answer int) {
+	return
+}
+
 func Solve(input string, part int, lo, hi float64) (answer int) {
 	stones := ReadStones(input)
-	answer = IntersectCount(stones, lo, hi)
+	if part == 1 {
+		answer = IntersectCount(stones, lo, hi)
+	} else {
+		answer = ThrowOneStone(stones)
+	}
 	return
 }
