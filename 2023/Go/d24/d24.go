@@ -1,7 +1,7 @@
 package d24
 
 import (
-	"aoc2023/common"
+	"strconv"
 	"strings"
 )
 
@@ -12,65 +12,39 @@ const TEST1 string = `19, 13, 30 @ -2,  1, -2
 20, 19, 15 @  1, -5, -3`
 
 const (
-	lo float64 = 200_000_000_000_000
-	hi float64 = 400_000_000_000_000
+	px = iota
+	py
+	pz
+	vx
+	vy
+	vz
 )
 
-type D3 struct {
-	X, Y, Z float64
-}
-
-type D2 struct {
-	X, Y float64
-}
-
-type Stone struct {
-	Position, Velocity D3
-}
-
-func ReadStones(input string) (stones []Stone) {
-	stones = []Stone{}
-	for _, line := range strings.Split(input, "\n") {
-		entries := strings.Split(strings.Replace(line, "@", ",", -1), ",")
-		stone := Stone{
-			D3{
-				float64(common.StrToInt(strings.Trim(entries[0], " "))),
-				float64(common.StrToInt(strings.Trim(entries[1], " "))),
-				float64(common.StrToInt(strings.Trim(entries[2], " ")))},
-			D3{
-				float64(common.StrToInt(strings.Trim(entries[3], " "))),
-				float64(common.StrToInt(strings.Trim(entries[4], " "))),
-				float64(common.StrToInt(strings.Trim(entries[5], " ")))},
+func ReadStones(input string) (hail [][6]float64) {
+	hail = [][6]float64{}
+	for _, entry := range strings.Split(input, "\n") {
+		s := strings.Replace(entry, "@", ",", -1)
+		s = strings.Replace(s, ",", " ", -1)
+		subHail := [6]float64{}
+		for i, v := range strings.Fields(s) {
+			subHail[i], _ = strconv.ParseFloat(v, 64)
 		}
-		stones = append(stones, stone)
+		hail = append(hail, subHail)
 	}
 	return
 }
 
-func Intersects(a, b Stone) (D2, bool) {
-	a2 := D2{a.Velocity.X, a.Velocity.Y}
-	b2 := D2{b.Velocity.X, b.Velocity.Y}
-	d2 := D2{b.Position.X - a.Position.X, b.Position.Y - a.Position.Y}
-	ab := (a2.X * b2.Y) - (a2.Y * b2.X)
-	db := (d2.X * b2.Y) - (d2.Y * b2.X)
-	if ab == 0.0 {
-		return D2{-1, -1}, false
-	}
-	div := db / ab
-	return D2{a.Position.X + a.Velocity.X*div, a.Position.Y + a.Velocity.Y*div}, true
-}
-
-func IntersectCount(stones []Stone) (answer int) {
+func IntersectCount(stones [][6]float64, lo, hi float64) (count int) {
 	for i := 0; i < len(stones)-1; i++ {
 		for j := i + 1; j < len(stones); j++ {
 			s1, s2 := stones[i], stones[j]
-			if point, intersects := Intersects(s1, s2); intersects {
-				if point.X >= lo && point.X <= hi && point.Y >= lo && point.Y <= hi {
-					dx, dy := point.X-s1.Position.X, point.Y-s1.Position.Y
-					if (dx > 0) == (s1.Velocity.X > 0) && (dy > 0) == (s1.Velocity.Y > 0) {
-						dx, dy := point.X-s2.Position.X, point.Y-s2.Position.Y
-						if (dx > 0) == (s2.Velocity.X > 0) && (dy > 0) == (s2.Velocity.Y > 0) {
-							answer++
+			if p, yn := Intersects(s1, s2); yn {
+				if p[px] >= lo && p[px] <= hi && p[py] >= lo && p[py] <= hi {
+					dx, dy := p[px]-s1[px], p[py]-s1[py]
+					if (dx > 0) == (s1[vx] > 0) && (dy > 0) == (s1[vy] > 0) {
+						dx, dy = p[px]-s2[px], p[py]-s2[py]
+						if (dx > 0) == (s2[vx] > 0) && (dy > 0) == (s2[vy] > 0) {
+							count++
 						}
 					}
 				}
@@ -80,8 +54,20 @@ func IntersectCount(stones []Stone) (answer int) {
 	return
 }
 
-func Solve(input string, part int) (answer int) {
+func Intersects(s1, s2 [6]float64) ([2]float64, bool) {
+	s11 := [2]float64{s1[vx], s1[vy]}
+	s21 := [2]float64{s2[vx], s2[vy]}
+	d := [2]float64{s2[px] - s1[px], s2[py] - s1[py]}
+	d0 := (s11[0] * s21[1]) - (s11[1] * s21[0])
+	if d0 == 0.0 {
+		return s11, false
+	}
+	cp := ((d[0] * s21[1]) - (d[1] * s21[0])) / d0
+	return [2]float64{s1[px] + s1[vx]*cp, s1[py] + s1[vy]*cp}, true
+}
+
+func Solve(input string, part int, lo, hi float64) (answer int) {
 	stones := ReadStones(input)
-	answer = IntersectCount(stones)
+	answer = IntersectCount(stones, lo, hi)
 	return
 }
