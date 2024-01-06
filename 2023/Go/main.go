@@ -150,7 +150,7 @@ func main() {
 
 	log.Print("")
 	log.Printf("Day 20, part  1 (test 1): %d", d20.Solve(d20.TEST1, 1))
-	log.Printf("Day 20, part  1 (test 2): %d", d20.Solve(d20.TEST2, 1))
+	// log.Printf("Day 20, part  1 (test 2): %d", d20.Solve(d20.TEST2, 1))
 	// log.Printf("Day 20, part  1: %d", d20.Solve(common.ReadContent(20), 1))
 	// log.Printf("Day 20, part  2: %d", d20.Solve(common.ReadContent(20), 2))
 

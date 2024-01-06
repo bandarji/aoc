@@ -1,6 +1,8 @@
 package d20
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"slices"
 	"strings"
@@ -24,128 +26,132 @@ const (
 	CONJ
 )
 
+const (
+	LOPULSE int = iota
+	HIPULSE
+)
+
 type Module struct {
 	Name     string
-	Tipe     int
+	Kind     int
+	On       bool
+	Remember map[string]int
 	Outputs  []string
-	Memory   bool
-	Memories map[string]string
 }
 
-type Modules struct {
-	Modules      map[string]*Module
-	BcastOutputs []string
-	Lo, Hi       int
+type Puzzle struct {
+	Modules             map[string]Module
+	Names, BcastOutputs []string
+	Lo, Hi              int
 }
 
-func (m *Modules) PressButton() {
-	q := [][3]string{}
-	m.Lo++
-	for _, bo := range m.BcastOutputs {
-		q = append(q, [3]string{"broadcaster", bo, "lo"})
+func (p *Puzzle) ReadConfiguration(input string) {
+	for _, entry := range strings.Split(input, "\n") {
+		halves := strings.Split(entry, " -> ")
+		outputs := strings.Split(halves[1], ", ")
+		name := halves[0][1:]
+		switch string(halves[0][0]) {
+		case "b":
+			p.BcastOutputs = outputs
+		case `%`:
+			p.Names = append(p.Names, name)
+			p.Modules[name] = Module{name, FLIP, false, map[string]int{}, outputs}
+		case `&`:
+			p.Names = append(p.Names, name)
+			p.Modules[name] = Module{name, CONJ, false, map[string]int{}, outputs}
+		}
+	}
+	for name, mod := range p.Modules {
+		for _, o := range mod.Outputs {
+			if slices.Contains(p.Names, o) && p.Modules[o].Kind == CONJ {
+				p.Modules[o].Remember[name] = LOPULSE
+			}
+		}
+	}
+}
+
+type Signal struct {
+	Origin, Target string
+	Pulse          int
+}
+
+func (p *Puzzle) PressButton() {
+	send := LOPULSE
+	q := []Signal{}
+	p.Lo++
+	log.Printf("button -%d-> broadcaster", send)
+	for _, bt := range p.BcastOutputs {
+		log.Printf("broadcaster -%d-> %s", send, bt)
+		q = append(q, Signal{"broadcaster", bt, send})
 	}
 	for len(q) > 0 {
-		q0 := q[0]
+		this := q[0]
 		q = q[1:]
-		origin, target, pulse := q0[0], q0[1], q0[2]
-		if pulse == "lo" {
-			m.Lo++
+		if this.Pulse == LOPULSE {
+			p.Lo++
 		} else {
-			m.Hi++
+			p.Hi++
 		}
-		send := "lo"
-		if mod, exists := m.Modules[target]; !exists {
-			continue
-		} else {
-			if mod.Tipe == FLIP {
-				if pulse == "lo" {
-					if !mod.Memory {
-						mod.Memory = true
-					}
-					send = "lo"
-					if mod.Memory {
-						send = "hi"
-					}
-					for _, d := range mod.Outputs {
-						q = append(q, [3]string{mod.Name, d, send})
-					}
+		// if _, exists := p.Modules[this.Target]; !exists {
+		// 	continue
+		// }
+		module := p.Modules[this.Target]
+		if module.Kind == CONJ {
+			if this.Pulse == LOPULSE {
+				if !module.On {
+					module.On = true
 				}
+				if module.On {
+					send = HIPULSE
+				}
+			}
+			for _, o := range module.Outputs {
+				log.Printf("%s -%d-> %s", module.Name, send, o)
+				q = append(q, Signal{module.Name, o, send})
+				// log.Printf("q = %#v", q)
+			}
+		} else {
+			module.Remember[this.Origin] = this.Pulse
+			if AllHi(module.Remember) {
+				send = LOPULSE
 			} else {
-				mod.Memories[origin] = pulse
-				send = PulseToSend(mod.Memories)
-				for _, d := range mod.Outputs {
-					q = append(q, [3]string{mod.Name, d, send})
-				}
+				send = HIPULSE
+			}
+			for _, o := range module.Outputs {
+				log.Printf("%s -%d-> %s", module.Name, send, o)
+				q = append(q, Signal{module.Name, o, send})
+				// log.Printf("q = %#v", q)
 			}
 		}
+		p.Modules[this.Target] = module
 	}
 }
 
-func PulseToSend(memories map[string]string) string {
-	for _, v := range memories {
-		if v != "hi" {
-			return "hi"
+func AllHi(mem map[string]int) bool {
+	for _, v := range mem {
+		if v == LOPULSE {
+			return false
 		}
 	}
-	return "lo"
-}
-
-func (m *Modules) AddBroadcastOutputs(outputs []string) {
-	m.BcastOutputs = outputs
-}
-
-func (m *Modules) AddModule(name string, tipe int, outputs []string) {
-	m.Modules[name] = &Module{name, tipe, outputs, false, map[string]string{}}
-}
-
-func ReadConfiguration(input string) (m *Modules) {
-	m = &Modules{
-		Modules:      map[string]*Module{},
-		BcastOutputs: []string{},
-	}
-	names := []string{}
-	for _, entry := range strings.Split(input, "\n") {
-		tipe := BCAST
-		parts := strings.Split(entry, " -> ")
-		outputs := strings.Split(parts[1], ", ")
-		if parts[0] == "broadcaster" {
-			m.AddBroadcastOutputs(outputs)
-		} else {
-			name := parts[0][1:]
-			switch parts[0][0] {
-			case '%':
-				tipe = FLIP
-			case '&':
-				tipe = CONJ
-			}
-			m.AddModule(name, tipe, outputs)
-			names = append(names, name)
-		}
-	}
-	for name, mod := range m.Modules {
-		for _, o := range mod.Outputs {
-			if slices.Contains(names, o) && m.Modules[o].Tipe == CONJ {
-				m.Modules[o].Memories[name] = o
-			}
-		}
-	}
-	return
+	return true
 }
 
 func Solve(input string, part int) (answer int) {
-	mods := ReadConfiguration(input)
+	p := &Puzzle{map[string]Module{}, []string{}, []string{}, 0, 0}
+	p.ReadConfiguration(input)
+	p.PressButton()
 
-	// info, err := json.MarshalIndent(mods, "", "    ")
-	// if err != nil {
-	// 	log.Fatal("Broken JSON")
-	// }
-	// fmt.Println(string(info))
-
-	for i := 0; i < 1_000; i++ {
-		mods.PressButton()
+	info, err := json.MarshalIndent(p, "", "    ")
+	if err != nil {
+		log.Fatal("Broken JSON")
 	}
+	fmt.Println(string(info))
 
-	log.Printf("lo=%d, hi=%d", mods.Lo, mods.Hi)
-	answer = mods.Lo * mods.Hi
+	// for i := 0; i < 1; i++ {
+	// 	mods.PressButton()
+	// }
+
+	log.Printf("lo=%d, hi=%d", p.Lo, p.Hi)
+	answer = p.Lo * p.Hi
 	return
 }
