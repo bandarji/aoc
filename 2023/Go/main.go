@@ -20,6 +20,7 @@ import (
 	"aoc2023/d17"
 	"aoc2023/d18"
 	"aoc2023/d19"
+	"aoc2023/d20"
 	"aoc2023/d21"
 	"aoc2023/d22"
 	"aoc2023/d23"
@@ -146,6 +147,12 @@ func main() {
 	log.Printf("Day 19, part  2 (test 1): %d", d19.Solve(d19.TEST1, 2))
 	// log.Printf("Day 19, part  1: %d\n", d19.Solve(common.ReadContent(19), 1))
 	// log.Printf("Day 19, part  2: %d\n\n", d19.Solve(common.ReadContent(19), 2))
+
+	log.Print("")
+	log.Printf("Day 20, part  1 (test 1): %d", d20.Solve(d20.TEST1, 1))
+	// log.Printf("Day 20, part  1 (test 2): %d", d20.Solve(d20.TEST2, 1))
+	// log.Printf("Day 20, part  1: %d", d20.Solve(common.ReadContent(20), 1))
+	// log.Printf("Day 20, part  2: %d", d20.Solve(common.ReadContent(20), 2))
 
 	log.Print("")
 	log.Printf("Day 21, part  1 (test 1): %d", d21.Solve(d21.TEST1, 6, 1))
