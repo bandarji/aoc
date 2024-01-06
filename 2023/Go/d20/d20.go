@@ -92,9 +92,9 @@ func (p *Puzzle) PressButton() {
 		} else {
 			p.Hi++
 		}
-		// if _, exists := p.Modules[this.Target]; !exists {
-		// 	continue
-		// }
+		if _, exists := p.Modules[this.Target]; !exists {
+			continue
+		}
 		module := p.Modules[this.Target]
 		if module.Kind == CONJ {
 			if this.Pulse == LOPULSE {
@@ -104,11 +104,11 @@ func (p *Puzzle) PressButton() {
 				if module.On {
 					send = HIPULSE
 				}
-			}
-			for _, o := range module.Outputs {
-				log.Printf("%s -%d-> %s", module.Name, send, o)
-				q = append(q, Signal{module.Name, o, send})
-				// log.Printf("q = %#v", q)
+				for _, o := range module.Outputs {
+					log.Printf("%s -%d-> %s", module.Name, send, o)
+					q = append(q, Signal{module.Name, o, send})
+					// log.Printf("q = %#v", q)
+				}
 			}
 		} else {
 			module.Remember[this.Origin] = this.Pulse
@@ -123,11 +123,12 @@ func (p *Puzzle) PressButton() {
 				// log.Printf("q = %#v", q)
 			}
 		}
-		p.Modules[this.Target] = module
+		// p.Modules[this.Target] = module
 	}
 }
 
 func AllHi(mem map[string]int) bool {
+	log.Printf("mem = %#v", mem)
 	for _, v := range mem {
 		if v == LOPULSE {
 			return false
