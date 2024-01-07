@@ -1,6 +1,7 @@
 package main
 
 import (
+	"aoc2023/common"
 	"aoc2023/d01"
 	"aoc2023/d02"
 	"aoc2023/d03"
@@ -150,7 +151,7 @@ func main() {
 
 	log.Print("")
 	log.Printf("Day 20, part  1 (test 1): %d", d20.Solve(d20.TEST1, 1))
-	// log.Printf("Day 20, part  1 (test 2): %d", d20.Solve(d20.TEST2, 1))
+	log.Printf("Day 20, part  1 (test 2): %d", d20.Solve(d20.TEST2, 1))
 	// log.Printf("Day 20, part  1: %d", d20.Solve(common.ReadContent(20), 1))
 	// log.Printf("Day 20, part  2: %d", d20.Solve(common.ReadContent(20), 2))
 
@@ -179,8 +180,8 @@ func main() {
 
 	log.Print("")
 	log.Printf("Day 23, part  1 (test 1): %d", d23.Solve(d23.TEST1, 1))
-	// log.Printf("Day 23, part  2 (test 1): %d\n\n", d23.Solve(d23.TEST1, 2))
-	// log.Printf("Day 23, part  1: %d\n", d23.Solve(common.ReadContent(23), 1))
+	log.Printf("Day 23, part  2 (test 1): %d", d23.Solve(d23.TEST1, 2))
+	log.Printf("Day 23, part  1: %d", d23.Solve(common.ReadContent(23), 1))
 	// log.Printf("Day 23, part  2: %d\n\n", d23.Solve(common.ReadContent(23), 2))
 
 	log.Print("")

@@ -96,7 +96,7 @@ func (p *Puzzle) PressButton() {
 			continue
 		}
 		module := p.Modules[this.Target]
-		if module.Kind == CONJ {
+		if module.Kind == FLIP {
 			if this.Pulse == LOPULSE {
 				if !module.On {
 					module.On = true
@@ -140,7 +140,9 @@ func AllHi(mem map[string]int) bool {
 func Solve(input string, part int) (answer int) {
 	p := &Puzzle{map[string]Module{}, []string{}, []string{}, 0, 0}
 	p.ReadConfiguration(input)
-	p.PressButton()
+	for i := 0; i < 1_000; i++ {
+		p.PressButton()
+	}
 
 	info, err := json.MarshalIndent(p, "", "    ")
 	if err != nil {
