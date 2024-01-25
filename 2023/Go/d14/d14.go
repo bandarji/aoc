@@ -1,6 +1,9 @@
 package d14
 
 import (
+	"crypto/md5"
+	"encoding/hex"
+	"fmt"
 	"strings"
 )
 
@@ -15,101 +18,172 @@ O.#..O.#.#
 #....###..
 #OO..#....`
 
-const CYCLES int = 1_000_000_000 // 1x10^9 / one billion
+var cache = make(map[string]int)
 
-var Cache = make(map[string]int)
-
-func ReadGrid(input string) (platform [][]string) {
-	platform = [][]string{}
-	for _, row := range strings.Split(input, "\n") {
-		platform = append(platform, strings.Split(row, ""))
+func MakeGrid(input string) (grid [][]string) {
+	grid = [][]string{}
+	for _, line := range strings.Split(input, "\n") {
+		grid = append(grid, strings.Split(line, ""))
 	}
 	return
 }
 
-func Dimensions(platform [][]string) (height, width int) {
-	height, width = len(platform), len(platform[0])
+func Weight(grid [][]string) (weight int) {
+	factor := len(grid)
+	for y, row := range grid {
+		count := 0
+		for x := range row {
+			if grid[y][x] == "O" {
+				count++
+			}
+		}
+		weight += factor * count
+		factor--
+	}
 	return
 }
 
-func TiltPlatform(platform [][]string) ([][]string, int) {
-	answer := 0
-	height, width := Dimensions(platform)
-	for col := 0; col < width; col++ {
-		block, going := -1, 0
-		for row := 0; row < height; row++ {
-			if platform[row][col] == "#" {
-				answer += going * (height - block - 1)
-				answer -= going * (going - 1) / 2
-				block, going = row, 0
-			}
-			if platform[row][col] == "O" {
-				going++
-			}
-		}
-		if going > 0 {
-			answer += going * (height - block - 1)
-			answer -= going * (going - 1) / 2
-		}
+func Key(grid [][]string) (key string) {
+	key = ""
+	for _, row := range grid {
+		key += strings.Join(row, "")
 	}
-	return platform, answer
+	hash := md5.Sum([]byte(key))
+	key = hex.EncodeToString(hash[:])
+	return
 }
 
-// func Rotate(platform [][]string) [][]string {
-// 	height, width := Dimensions(platform)
-//     rotated := make([][]string, height)
-//     for i := 0; i < width; i++ {
-//         rotated[i] = make([]string, height)
-//     }
-//     for i := 0; i < height; i++ {
-//         for j := 0; j < width; j++ {
-//             rotated[j][height-1-i] = platform[i][j]
-//         }
-//     }
-//     return rotated
-// }
+const cycleCount int = 1_000_000_000
 
-// func TiltAllDirections(platform [][]string) (answer int) {
-// 	height, width := Dimensions(platform)
-// 	for i := 0; i < CYCLES; i++ {
-// 		platform := PerformOneCycle(platform)
+// func DisplayGrid(grid [][]string, cycle int) {
+// 	fmt.Printf("\nAfter %d cycle:\n", cycle)
+// 	for _, row := range grid {
+// 		for _, ch := range row {
+// 			fmt.Print(ch)
+// 		}
+// 		fmt.Println()
 // 	}
-// 	return answer
 // }
 
-// func HashPlatform(platform [][]string) string {
-// 	hash := md5.Sum([]byte(fmt.Sprintf("%+v", platform)))
-// 	return hex.EncodeToString(hash[:])
-// }
+func DisplayGrid(grid [][]string, msg string) {
+	fmt.Println(msg)
+	for _, row := range grid {
+		for _, ch := range row {
+			fmt.Print(ch)
+		}
+		fmt.Println()
+	}
+}
 
-// func CacheSet(platform [][]string, answer int) {
-// 	Cache[HashPlatform(platform)] = answer
-// }
+func TiltNorth(grid [][]string) [][]string {
+	moved := false
+	for {
+		moved = false
+		for y := 1; y < len(grid); y++ {
+			for x := 0; x < len(grid[0]); x++ {
+				if grid[y][x] == "O" && grid[y-1][x] == "." {
+					moved = true
+					grid[y][x] = "."
+					grid[y-1][x] = "O"
+				}
+			}
+		}
+		if !moved {
+			break
+		}
+	}
+	return grid
+}
 
-// func CacheRead(platform [][]string) int {
-// 	key := HashPlatform(platform)
-// 	if answer, exists := Cache[key]; exists {
-// 		return answer
-// 	}
-// 	return -1
-// }
+func TiltSouth(grid [][]string) [][]string {
+	moved := false
+	for {
+		moved = false
+		for y := 0; y < len(grid)-1; y++ {
+			for x := 0; x < len(grid[0]); x++ {
+				if grid[y][x] == "O" && grid[y+1][x] == "." {
+					moved = true
+					grid[y][x] = "."
+					grid[y+1][x] = "O"
+				}
+			}
+		}
+		if !moved {
+			break
+		}
+	}
+	return grid
+}
 
-// func GetMD5Hash(text string) string {
-// 	hash := md5.Sum([]byte(text))
-// 	return hex.EncodeToString(hash[:])
-//  }
+func TiltWest(grid [][]string) [][]string {
+	moved := false
+	for {
+		moved = false
+		for x := 1; x < len(grid[0]); x++ {
+			for y := 0; y < len(grid); y++ {
+				if grid[y][x] == "O" && grid[y][x-1] == "." {
+					moved = true
+					grid[y][x] = "."
+					grid[y][x-1] = "O"
+				}
+			}
+		}
+		if !moved {
+			break
+		}
+	}
+	return grid
+}
 
-// func PerformOneCycle(platform [][]string) (answer int) {
-// 	for i := 0; i < 4; i++ {
-// 		platform, answer := TiltPlatform(platform)
-// 	}
-// 	if answer, exists :=
-// 	return
-// }
+func TiltEast(grid [][]string) [][]string {
+	moved := false
+	for {
+		moved = false
+		for x := 0; x < len(grid[0])-1; x++ {
+			for y := 0; y < len(grid); y++ {
+				if grid[y][x] == "O" && grid[y][x+1] == "." {
+					moved = true
+					grid[y][x] = "."
+					grid[y][x+1] = "O"
+				}
+			}
+		}
+		if !moved {
+			break
+		}
+	}
+	return grid
+}
 
-func Solve(input string, part int) int {
-	platform := ReadGrid(input)
-	platform, answer := TiltPlatform(platform)
-	_ = platform
-	return answer
+func Cycle(grid [][]string) [][]string {
+	grid = TiltNorth(grid)
+	grid = TiltWest(grid)
+	grid = TiltSouth(grid)
+	grid = TiltEast(grid)
+	return grid
+}
+
+func Solve(input string, part int) (answer int) {
+	grid := MakeGrid(input)
+	if part == 1 {
+		grid = TiltNorth(grid)
+	} else {
+		for c := 1; c <= cycleCount; c++ {
+			grid = Cycle(grid)
+			hash := Key(grid)
+			if cycle, exists := cache[hash]; exists {
+				cycleLength := c - cycle
+				remaining := cycleCount - c
+				remaining -= (remaining / cycleLength) * cycleLength
+				for i := 0; i < remaining; i++ {
+					grid = Cycle(grid)
+				}
+				break
+			} else {
+				cache[hash] = c
+			}
+		}
+	}
+	answer = Weight(grid)
+	return
 }

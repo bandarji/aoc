@@ -112,9 +112,9 @@ func main() {
 
 	log.Print("")
 	log.Printf("Day 14, part  1 (test 1): %d", d14.Solve(d14.TEST1, 1))
-	// log.Printf("Day 14, part  2 (test 2): %d\n\n", d14.Solve(d14.TEST1, 2))
-	// log.Printf("Day 14, part  1: %d\n\n", d14.Solve(common.ReadContent(14), 1))
-	// log.Printf("Day 12, part  2: %d\n\n", d12.Solve(common.ReadContent(12), 2))
+	log.Printf("Day 14, part  2 (test 2): %d", d14.Solve(d14.TEST1, 2))
+	// log.Printf("Day 14, part  1: %d", d14.Solve(common.ReadContent(14), 1))
+	// log.Printf("Day 14, part  2: %d", d14.Solve(common.ReadContent(14), 2))
 
 	log.Print("")
 	log.Printf("Day 15, part  1 (test 1): %d", d15.Solve(d15.TEST1, 1))
