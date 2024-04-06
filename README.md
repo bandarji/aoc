@@ -4,8 +4,8 @@
 
 ## 2023
 
-[!NOTE]
-Wrote all solutions this year using the [Go](https://go.dev/) programming language.
+> [!NOTE]
+> Wrote all solutions this year using the [Go](https://go.dev/) programming language.
 
 - [x] Day 01
 - [x] Day 02
@@ -35,8 +35,8 @@ Wrote all solutions this year using the [Go](https://go.dev/) programming langua
 
 ## 2022
 
-[!NOTE]
-Did not get much time to focus on the days as they popped up.
+> [!NOTE]
+> Did not get much time to focus on the days as they popped up.
 
 | Day | Go | Python | Rust |
 | :--- | :---: | :---: | :---: |
