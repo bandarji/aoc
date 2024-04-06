@@ -1,1 +1,0 @@
-../../Python/input_day01.txt
