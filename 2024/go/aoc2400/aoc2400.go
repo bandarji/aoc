@@ -8,7 +8,6 @@ import (
 	"strings"
 )
 
-const AOC2400 bool = true
 const contentDir string = "inputfiles/"
 
 func StrToInt(s string) (v int) {

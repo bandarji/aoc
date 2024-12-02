@@ -3,13 +3,9 @@ package aoc2401
 import (
 	"aoc24/aoc2400"
 	_ "embed"
-	"fmt"
-	"log/slog"
 	"sort"
 	"strings"
 )
-
-const AOC2401 bool = true
 
 const AOC2401_TEST string = `3   4
 4   3
@@ -31,7 +27,6 @@ func Aoc240101(input string) (total int) {
 	}
 	sort.Ints(left)
 	sort.Ints(right)
-	fmt.Println(left, right)
 	for i, lv := range left {
 		rv := right[i]
 		if lv > rv {
@@ -40,7 +35,7 @@ func Aoc240101(input string) (total int) {
 			distance = rv - lv
 		}
 		total += distance
-		slog.Info("2401.1_test", "left", lv, "right", rv, "distance", distance, "total", total)
+		// slog.Info("2401.1_test", "left", lv, "right", rv, "distance", distance, "total", total)
 	}
 	return
 }
