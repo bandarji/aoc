@@ -24,3 +24,11 @@ func ReadContent(day int) (content string) {
 	content = strings.Trim(string(bytes), "\n")
 	return
 }
+
+func AbsInts(x, y int) (a int) {
+	a = x - y
+	if a < 0 {
+		a = -a
+	}
+	return
+}

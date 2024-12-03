@@ -30,14 +30,8 @@ func checkDeltas(values []int) bool {
 			continue
 		}
 		prev := values[i-1]
-		if val > prev {
-			if val-prev > 3 {
-				return false
-			}
-		} else {
-			if prev-val > 3 {
-				return false
-			}
+		if aoc2400.AbsInts(val, prev) > 3 {
+			return false
 		}
 	}
 	return true
