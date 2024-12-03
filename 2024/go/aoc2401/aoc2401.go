@@ -17,7 +17,6 @@ const AOC2401_TEST string = `3   4
 func Aoc240101(input string) (total int) {
 	left := []int{}
 	right := []int{}
-	var distance int
 	for _, line := range strings.Split(input, "\n") {
 		fields := strings.Fields(line)
 		lv := aoc2400.StrToInt(fields[0])
@@ -29,12 +28,7 @@ func Aoc240101(input string) (total int) {
 	sort.Ints(right)
 	for i, lv := range left {
 		rv := right[i]
-		if lv > rv {
-			distance = lv - rv
-		} else {
-			distance = rv - lv
-		}
-		total += distance
+		total += aoc2400.AbsInts(lv, rv)
 		// slog.Info("2401.1_test", "left", lv, "right", rv, "distance", distance, "total", total)
 	}
 	return
