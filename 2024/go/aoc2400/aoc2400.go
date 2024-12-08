@@ -32,3 +32,11 @@ func AbsInts(x, y int) (a int) {
 	}
 	return
 }
+
+func AbsInt(x int) (a int) {
+	a = x
+	if x < 0 {
+		a = -x
+	}
+	return
+}
