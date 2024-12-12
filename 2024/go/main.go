@@ -11,6 +11,7 @@ import (
 	"aoc24/aoc2408"
 	"aoc24/aoc2409"
 	"aoc24/aoc2410"
+	"aoc24/aoc2411"
 	"fmt"
 )
 
@@ -64,5 +65,15 @@ func main() {
 	// fmt.Printf("AOC 2410.1: %d\n\n", aoc2410.Aoc241001(aoc2400.ReadContent(10)))
 	fmt.Printf("AOC 2410.2_test: %d\n\n", aoc2410.Aoc241002(aoc2410.AOC2410_TEST))
 	// fmt.Printf("AOC 2410.2: %d\n\n", aoc2410.Aoc241002(aoc2400.ReadContent(10)))
+
+	fmt.Printf("AOC 2411.1_test: %d\n\n", aoc2411.Aoc2411(aoc2411.AOC2411_TEST, 25))
+	// fmt.Printf("AOC 2411.1: %d\n\n", aoc2411.Aoc2411(aoc2400.ReadContent(11), 25))
+	fmt.Printf("AOC 2411.2_test: %d\n\n", aoc2411.Aoc2411(aoc2411.AOC2411_TEST, 75))
+	// fmt.Printf("AOC 2411.2: %d\n\n", aoc2411.Aoc2411(aoc2400.ReadContent(11), 75))
+
+	// fmt.Printf("AOC 2412.1_test: %d\n\n", aoc2412.Aoc2412(aoc2412.AOC2412_TEST, 25))
+	// fmt.Printf("AOC 2412.1: %d\n\n", aoc2412.Aoc2412(aoc2400.ReadContent(11), 25))
+	// fmt.Printf("AOC 2412.2_test: %d\n\n", aoc2412.Aoc2412(aoc2412.AOC2412_TEST, 75))
+	// fmt.Printf("AOC 2412.2: %d\n\n", aoc2412.Aoc2412(aoc2400.ReadContent(11), 75))
 
 }
