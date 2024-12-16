@@ -40,6 +40,16 @@ vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v
 ^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>
 v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^`
 
+const AOC2415_TEST_3 string = `#######
+#...#.#
+#.....#
+#..OO@#
+#..O..#
+#.....#
+#######
+
+<vv<<^^<<^^`
+
 func ReadData(input string) (grid [][]string, movements string, robot image.Point) {
 	grid = [][]string{}
 	sb := strings.Builder{}
@@ -121,11 +131,13 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 	positions := 0
 	_ = positions
 	for _, move := range movements {
+		// fmt.Printf("Move %c:\n", move)
 		switch move {
 		case '^':
 			if grid[robot.Y-1][robot.X] == "." {
 				grid[robot.Y][robot.X] = "."
 				grid[robot.Y-1][robot.X] = "@"
+				robot = image.Point{robot.X, robot.Y - 1}
 			} else {
 				if grid[robot.Y-1][robot.X] == "O" {
 					positions = PushUp(grid, robot)
@@ -133,6 +145,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 						grid[robot.Y-positions-1][robot.X] = "O"
 						grid[robot.Y][robot.X] = "."
 						grid[robot.Y-1][robot.X] = "@"
+						robot = image.Point{robot.X, robot.Y - 1}
 					}
 				}
 			}
@@ -140,6 +153,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 			if grid[robot.Y+1][robot.X] == "." {
 				grid[robot.Y][robot.X] = "."
 				grid[robot.Y+1][robot.X] = "@"
+				robot = image.Point{robot.X, robot.Y + 1}
 			} else {
 				if grid[robot.Y+1][robot.X] == "O" {
 					positions = PushDown(grid, robot)
@@ -147,6 +161,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 						grid[robot.Y+positions+1][robot.X] = "O"
 						grid[robot.Y][robot.X] = "."
 						grid[robot.Y+1][robot.X] = "@"
+						robot = image.Point{robot.X, robot.Y + 1}
 					}
 				}
 			}
@@ -154,6 +169,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 			if grid[robot.Y][robot.X-1] == "." {
 				grid[robot.Y][robot.X] = "."
 				grid[robot.Y][robot.X-1] = "@"
+				robot = image.Point{robot.X - 1, robot.Y}
 			} else {
 				if grid[robot.Y][robot.X-1] == "O" {
 					positions = PushLeft(grid, robot)
@@ -161,6 +177,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 						grid[robot.Y][robot.X-positions-1] = "O"
 						grid[robot.Y][robot.X] = "."
 						grid[robot.Y][robot.X-1] = "@"
+						robot = image.Point{robot.X - 1, robot.Y}
 					}
 				}
 			}
@@ -168,6 +185,7 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 			if grid[robot.Y][robot.X+1] == "." {
 				grid[robot.Y][robot.X] = "."
 				grid[robot.Y][robot.X+1] = "@"
+				robot = image.Point{robot.X + 1, robot.Y}
 			} else {
 				if grid[robot.Y][robot.X+1] == "O" {
 					positions = PushRight(grid, robot)
@@ -175,10 +193,13 @@ func MoveRobot(grid [][]string, movements string, robot image.Point) {
 						grid[robot.Y][robot.X+positions+1] = "O"
 						grid[robot.Y][robot.X] = "."
 						grid[robot.Y][robot.X+1] = "@"
+						robot = image.Point{robot.X + 1, robot.Y}
 					}
 				}
 			}
 		}
+		// DisplayGrid(grid)
+		// fmt.Println()
 	}
 }
 
@@ -204,7 +225,7 @@ func Aoc241501(input string) (ans int) {
 	defer func() { fmt.Println(time.Now().Sub(start)) }()
 	grid, instructions, robot := ReadData(input)
 	MoveRobot(grid, instructions, robot)
-	DisplayGrid(grid)
+	// DisplayGrid(grid)
 	ans = AddGPS(grid)
 	return
 }
