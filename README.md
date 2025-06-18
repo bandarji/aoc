@@ -2,68 +2,27 @@
 
 [Advent of Code Site](https://adventofcode.com/)
 
-## 2023
+I typically cannot solve these in real time because by the end of the first
+week my wife transitions from faces to foot tapping to stern words to making
+me fear for my life. :kissing_heart:
 
-> [!NOTE]
-> Wrote all solutions this year using the [Go](https://go.dev/) programming language.
+## Notes
 
-| Day | Go |
-| --- | :--- |
-| 01 | ⭐⭐ |
-| 02 | ⭐⭐ |
-| 03 | ⭐⭐ |
-| 04 | ⭐⭐ |
-| 05 | ⭐⭐ |
-| 06 | ⭐⭐ |
-| 07 | ⭐⭐ |
-| 08 | ⭐⭐ |
-| 09 | ⭐⭐ |
-| 10 | ⭐⭐ |
-| 11 | ⭐⭐ |
-| 12 | ⭐⭐ |
-| 13 | ⭐⭐ |
-| 14 | ⭐⭐ |
-| 15 | ⭐⭐ |
-| 16 | ⭐⭐ |
-| 17 | ⭐⭐ |
-| 18 | ⭐⭐ |
-| 19 | ⭐⭐ |
-| 20 | ⭐⭐ |
-| 21 | ⭐ |
-| 22 | ⭐⭐ |
-| 23 | ⭐⭐ |
-| 24 | ⭐ |
-| 25 | ⭐ |
+| Year | Stars | Notes |
+| :--- | :--- | :--- |
+| 2024 | 33 | Go |
+| 2023 | 47 | Go |
+| 2022 | 25 | Go, Rust and Python |
+| 2021 | 23 | Go and Python |
+| 2020 | 19 | Python - first year to join |
+| 2019 |  2 | C - wrote solution in 2020 |
+| 2018 |  0 | Did not participate |
+| 2017 |  0 | Did not participate |
+| 2016 | 23 | Go - written years later |
+| 2015 | 20 | Go, Rust and Python - written years later |
 
-## 2022
+I keep planning to go back and complete all prior years, but life and time
+get in the way of that fun. I enjoy and financially support Advent of Code,
+looking forward to each year's puzzles and accompanying stories.
 
-> [!NOTE]
-> Did not get much time to focus on the days as they popped up.
-
-| Day | Go | Python | Rust |
-| :--- | :---: | :---: | :---: |
-| 01 | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| 02 | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| 03 | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| 04 | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| 05 | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| 06 | ⭐⭐ | ⭐⭐ | |
-| 07 | ⭐⭐ | ⭐⭐ | |
-| 08 | ⭐⭐ | ⭐⭐ | |
-| 09 | ⭐⭐ | ⭐⭐ | |
-| 10 | ⭐⭐ | ⭐⭐ | |
-| 11 | ⭐⭐ | ⭐⭐ | |
-| 12 | ⭐⭐ | ⭐⭐ | |
-| 13 | ⭐⭐ | ⭐⭐ | |
-| 14 | ⭐⭐ | ⭐⭐ | |
-| 15 | ⭐⭐ | ⭐⭐ | |
-| 16 | | ⭐⭐ | |
-| 17 | | | |
-| 18 | | | |
-| 19 | | | |
-| 20 | ⭐⭐ | ⭐⭐ | |
-| 21 | ⭐ | ⭐⭐ | |
-| 22 | | | |
-| 23 | | | |
-| 24 | | | |
-| 25 | | ⭐ | |
+END OF LINE
