@@ -27,7 +27,13 @@ func (d *AOCDayNoInput) Part2(year, day int) string {
 }
 
 func NewAOCDay(year, day int) (DayRunner, error) {
-	return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
+	concatDate := fmt.Sprintf("%d-%02d", year, day)
+	switch concatDate {
+	case "2015-01":
+		return &Y15D01{}, nil
+	default:
+		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
+	}
 }
 
 func RunDay(dr DayRunner, year, day int) {
@@ -43,5 +49,5 @@ func readContent(filename string) string {
 }
 
 func formatFilename(year, day int) string {
-	return fmt.Sprintf("%d-%02d-input.txt", year, day)
+	return fmt.Sprintf("inputs/%d-%02d-input.txt", year, day)
 }
