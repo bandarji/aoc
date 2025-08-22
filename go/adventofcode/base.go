@@ -31,6 +31,8 @@ func NewAOCDay(year, day int) (DayRunner, error) {
 	switch concatDate {
 	case "2015-01":
 		return &Y15D01{}, nil
+	case "2015-02":
+		return &Y15D02{}, nil
 	default:
 		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
 	}
