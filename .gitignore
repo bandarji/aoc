@@ -51,6 +51,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 go/coverage.out
+go/coverage.html
 
 # Translations
 *.mo
