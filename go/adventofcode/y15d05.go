@@ -22,27 +22,27 @@ func (d *Y15D05) Part2(year, day int) string {
 func y15d05(input string, part int) (nice int) {
 	input = strings.TrimRight(input, "\n")
 	for s := range strings.SplitSeq(input, "\n") {
-		if niceString(s, part) {
+		if y15d05NiceString(s, part) {
 			nice += 1
 		}
 	}
 	return
 }
 
-func niceString(s string, part int) bool {
+func y15d05NiceString(s string, part int) bool {
 	if part == 1 {
-		if hasThreeVowels(s) && hasCharTwiceTogether(s) && !hasBadCombos(s) {
+		if y15d05HasThreeVowels(s) && y15d05HasCharTwiceTogether(s) && !y15d05HasBadCombos(s) {
 			return true
 		}
 	} else {
-		if hasTwoTwice(s) && hasSpacedRepeat(s) {
+		if y15d05HasTwoTwice(s) && y15d05HasSpacedRepeat(s) {
 			return true
 		}
 	}
 	return false
 }
 
-func hasSpacedRepeat(s string) bool {
+func y15d05HasSpacedRepeat(s string) bool {
 	for i := 2; i < len(s); i++ {
 		if s[i-2] == s[i] {
 			return true
@@ -51,7 +51,7 @@ func hasSpacedRepeat(s string) bool {
 	return false
 }
 
-func hasTwoTwice(s string) bool {
+func y15d05HasTwoTwice(s string) bool {
 	for i := 0; i < len(s)-2; i++ {
 		match := s[i : i+2]
 		for j := i + 2; j < len(s)-1; j++ {
@@ -63,7 +63,7 @@ func hasTwoTwice(s string) bool {
 	return false
 }
 
-func hasBadCombos(s string) bool {
+func y15d05HasBadCombos(s string) bool {
 	badies := []string{"ab", "cd", "pq", "xy"}
 	for i := 1; i < len(s); i++ {
 		for _, bad := range badies {
@@ -75,7 +75,7 @@ func hasBadCombos(s string) bool {
 	return false
 }
 
-func hasCharTwiceTogether(s string) bool {
+func y15d05HasCharTwiceTogether(s string) bool {
 	for i := 1; i < len(s); i++ {
 		if s[i] == s[i-1] {
 			return true
@@ -84,7 +84,7 @@ func hasCharTwiceTogether(s string) bool {
 	return false
 }
 
-func hasThreeVowels(s string) bool {
+func y15d05HasThreeVowels(s string) bool {
 	count := 0
 	for _, char := range s {
 		for _, vowel := range VOWELS {

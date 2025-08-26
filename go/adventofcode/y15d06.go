@@ -1,0 +1,89 @@
+package adventofcode
+
+import (
+	"fmt"
+	"strings"
+)
+
+type Y15D06 struct{}
+
+func (d *Y15D06) GetInput(year, day int) string {
+	return readContent(formatFilename(year, day))
+}
+
+func (d *Y15D06) Part1(year, day int) string {
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d06(d.GetInput(year, day), 1))
+}
+
+func (d *Y15D06) Part2(year, day int) string {
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d06(d.GetInput(year, day), 2))
+}
+
+func y15d06(input string, part int) (response int) {
+	grid := y15d06ProcessInstructions(input, part)
+	response = y15d06CountLit(&grid)
+	return
+}
+
+func y15d06CountLit(grid *[][]int) (count int) {
+	for _, row := range *grid {
+		for _, cell := range row {
+			count += cell
+		}
+	}
+	return
+}
+
+func y15d06ProcessInstructions(input string, part int) [][]int {
+	var sy, sx, ey, ex int
+	grid := make([][]int, 1000)
+	for i := 0; i < 1000; i++ {
+		grid[i] = make([]int, 1000)
+	}
+	input = strings.TrimRight(input, "\n")
+	for _, instruction := range strings.Split(input, "\n") {
+		switch {
+		case strings.HasPrefix(instruction, "toggle"):
+			fmt.Sscanf(instruction, "toggle %d,%d through %d,%d", &sy, &sx, &ey, &ex)
+			for y := sy; y <= ey; y++ {
+				for x := sx; x <= ex; x++ {
+					if part == 1 {
+						if grid[y][x] == 0 {
+							grid[y][x] = 1
+						} else {
+							grid[y][x] = 0
+						}
+					} else {
+						grid[y][x] += 2
+					}
+				}
+			}
+		case strings.HasPrefix(instruction, "turn on"):
+			fmt.Sscanf(instruction, "turn on %d,%d through %d,%d", &sy, &sx, &ey, &ex)
+			for y := sy; y <= ey; y++ {
+				for x := sx; x <= ex; x++ {
+					if part == 1 {
+						grid[y][x] = 1
+					} else {
+						grid[y][x]++
+					}
+				}
+			}
+		case strings.HasPrefix(instruction, "turn off"):
+			fmt.Sscanf(instruction, "turn off %d,%d through %d,%d", &sy, &sx, &ey, &ex)
+			for y := sy; y <= ey; y++ {
+				for x := sx; x <= ex; x++ {
+					if part == 1 {
+						grid[y][x] = 0
+					} else {
+						grid[y][x]--
+						if grid[y][x] < 0 {
+							grid[y][x] = 0
+						}
+					}
+				}
+			}
+		}
+	}
+	return grid
+}
