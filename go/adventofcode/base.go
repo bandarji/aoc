@@ -31,8 +31,26 @@ func (d *AOCDayNoInput) Part2(year, day int) string {
 func NewAOCDay(year, day int) (DayRunner, error) {
 	concatDate := fmt.Sprintf("%d-%02d", year, day)
 	switch concatDate {
+	case "2015-01":
+		return &Y15D01{}, nil
+	case "2015-02":
+		return &Y15D02{}, nil
+	case "2015-03":
+		return &Y15D03{}, nil
+	case "2015-04":
+		return &Y15D04{}, nil
+	case "2015-05":
+		return &Y15D05{}, nil
+	case "2015-06":
+		return &Y15D06{}, nil
+	case "2015-07":
+		return &Y15D07{}, nil
+	case "2015-08":
+		return &Y15D08{}, nil
 	case "2015-09":
 		return &Y15D09{}, nil
+	case "2015-10":
+		return &Y15D10{}, nil
 	default:
 		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
 	}

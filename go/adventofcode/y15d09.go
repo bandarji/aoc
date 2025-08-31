@@ -21,6 +21,9 @@ func (d *Y15D09) Part2(year, day int) string {
 }
 
 func y15d09(input string, part int) int {
+	if len(input) == 0 {
+		return 0
+	}
 	places := y15d09AssemblePlaces(input)
 	perms := [][]string{}
 	y15d09Permutations(places, len(places), &perms)
