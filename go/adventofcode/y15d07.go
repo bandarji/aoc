@@ -23,6 +23,9 @@ func (d *Y15D07) Part2(year, day int) string {
 }
 
 func y15d07(input string, wire string, part int) int {
+	if len(input) == 0 {
+		return 0
+	}
 	circuit := map[string]string{}
 	for _, line := range strings.Split(input, "\n") {
 		parts := strings.Split(line, " -> ")
