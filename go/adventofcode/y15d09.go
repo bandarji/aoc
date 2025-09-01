@@ -103,16 +103,14 @@ func y15d09AssemblePlaces(input string) (spots []string) {
 
 func y15d09Permutations(places []string, n int, result *[][]string) {
 	if n == 1 {
-		dst := make([]string, len(places))
-		copy(dst, places[:])
-		*result = append(*result, dst)
+		*result = append(*result, append([]string{}, places...))
 	} else {
 		for i := 0; i < n; i++ {
 			y15d09Permutations(places, n-1, result)
 			if n%2 == 0 {
-				places[0], places[n-1] = places[n-1], places[0]
-			} else {
 				places[i], places[n-1] = places[n-1], places[i]
+			} else {
+				places[0], places[n-1] = places[n-1], places[0]
 			}
 		}
 	}
