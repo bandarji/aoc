@@ -51,6 +51,8 @@ func NewAOCDay(year, day int) (DayRunner, error) {
 		return &Y15D09{}, nil
 	case "2015-10":
 		return &Y15D10{}, nil
+	case "2015-11":
+		return &Y15D11{}, nil
 	default:
 		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
 	}
