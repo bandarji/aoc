@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/bandarji/aoc/adventofcode"
 )
 
@@ -14,6 +16,8 @@ func main() {
 		for day := 1; day <= 25; day++ {
 			if data, err := adventofcode.NewAOCDay(year, day); err == nil {
 				adventofcode.RunDay(data, year, day)
+			} else {
+				fmt.Println(err)
 			}
 		}
 	}
