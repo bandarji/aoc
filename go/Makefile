@@ -7,14 +7,14 @@ help:
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 build: ## Build executable
-	@go build -o ./aoc cmd/main.go
+	@go build -o ./aoc cmd/*.go
 
 clean: ## Remove unnecessary files
 	@go clean
 	@rm -f aoc coverage.out coverage.html
 
 run: build ## Play the game
-	@./aoc
+	@./aoc -y $(YEAR) -d $(DAY)
 	@rm -f aoc
 
 test: ## Execute unit tests
