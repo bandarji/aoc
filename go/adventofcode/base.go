@@ -8,6 +8,7 @@ import (
 )
 
 const VOWELS string = "aeiou"
+const ME string = "bandarji"
 
 type DayRunner interface {
 	GetInput(year, day int) string
@@ -66,6 +67,8 @@ func NewAOCDay(year, day int) (DayRunner, error) {
 		return &Y15D11{}, nil
 	case "2015-12":
 		return &Y15D12{}, nil
+	case "2015-13":
+		return &Y15D13{}, nil
 	default:
 		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
 	}
