@@ -17,18 +17,6 @@ type y15d14Reindeer struct {
 	points                              int
 }
 
-func (r *y15d14Reindeer) cycle() {
-	if r.flyingTTL > 0 {
-		r.distance += r.speed
-		r.flyingTTL--
-	} else if r.restTTL > 0 {
-		r.restTTL--
-		if r.restTTL == 0 {
-			r.flyingTTL = r.flyingDuration
-		}
-	}
-}
-
 type Y15D14 struct{}
 
 func (d *Y15D14) GetInput(year, day int) string {
