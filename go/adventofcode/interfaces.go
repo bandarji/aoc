@@ -312,3 +312,17 @@ func (d *Y15D22) Part1(year, day int) string {
 func (d *Y15D22) Part2(year, day int) string {
 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d22(d.GetInput(year, day), 2, 50, 500))
 }
+
+type Y15D23 struct{}
+
+func (d *Y15D23) GetInput(year, day int) string {
+	return readContent(formatFilename(year, day))
+}
+
+func (d *Y15D23) Part1(year, day int) string {
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d23(d.GetInput(year, day), "b", 1))
+}
+
+func (d *Y15D23) Part2(year, day int) string {
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d23(d.GetInput(year, day), "b", 2))
+}
