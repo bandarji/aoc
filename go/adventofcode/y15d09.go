@@ -6,20 +6,6 @@ import (
 	"strings"
 )
 
-type Y15D09 struct{}
-
-func (d *Y15D09) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D09) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d09(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D09) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d09(d.GetInput(year, day), 2))
-}
-
 func y15d09(input string, part int) int {
 	if len(input) == 0 {
 		return 0

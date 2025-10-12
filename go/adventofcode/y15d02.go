@@ -1,25 +1,10 @@
 package adventofcode
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
-
-type Y15D02 struct{}
-
-func (d *Y15D02) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D02) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d02p1(d.GetInput(year, day)))
-}
-
-func (d *Y15D02) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d02p2(d.GetInput(year, day)))
-}
 
 func y15d02p1(input string) (sqft int) {
 	sqft = y15d02solve(input, 1)

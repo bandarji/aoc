@@ -18,20 +18,6 @@ var y15d16Tape = map[string]int{
 	"perfumes:":    1,
 }
 
-type Y15D16 struct{}
-
-func (d *Y15D16) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D16) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d16(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D16) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d16(d.GetInput(year, day), 2))
-}
-
 func y15d16(input string, part int) (answer int) {
 	answer = y15d16FindSue(input, part)
 	return

@@ -1,23 +1,8 @@
 package adventofcode
 
 import (
-	"fmt"
 	"strings"
 )
-
-type Y15D17 struct{}
-
-func (d *Y15D17) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D17) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d17(d.GetInput(year, day), 150, 1))
-}
-
-func (d *Y15D17) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d17(d.GetInput(year, day), 150, 2))
-}
 
 func y15d17(input string, liters int, part int) (answer int) {
 	containers := y15d17GetContainers(input)

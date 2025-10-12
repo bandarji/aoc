@@ -2,26 +2,9 @@ package adventofcode
 
 import (
 	"encoding/json"
-	"fmt"
 	"regexp"
 	"strings"
 )
-
-// const y15d07InterestingWire string = "a"
-
-type Y15D12 struct{}
-
-func (d *Y15D12) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D12) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d12(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D12) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d12(d.GetInput(year, day), 2))
-}
 
 func y15d12(input string, part int) int {
 	if part == 1 {

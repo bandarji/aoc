@@ -22,20 +22,6 @@ var y15d22Spells = map[string]y15d22Spell{
 	"Recharge":      {index: 4, cost: 229, turns: 5, recharge: 101},
 }
 
-type Y15D22 struct{}
-
-func (d *Y15D22) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D22) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d22(d.GetInput(year, day), 1, 50, 500))
-}
-
-func (d *Y15D22) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d22(d.GetInput(year, day), 2, 50, 500))
-}
-
 func y15d22(input string, part, hp, mana int) (answer int) {
 	bossHP, bossDmg := y15d22ReadBoss(input)
 	status := y15d22Status{hp: hp, mana: mana, bossHP: bossHP, bossDmg: bossDmg, effects: [5]int{}, myTurn: true}
