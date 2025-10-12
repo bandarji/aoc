@@ -17,20 +17,6 @@ type y15d14Reindeer struct {
 	points                              int
 }
 
-type Y15D14 struct{}
-
-func (d *Y15D14) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D14) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d14(d.GetInput(year, day), y15d14seconds, 1))
-}
-
-func (d *Y15D14) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d14(d.GetInput(year, day), y15d14seconds, 2))
-}
-
 func y15d14(input string, seconds, part int) (winningDistance int) {
 	cycle := 0
 	reindeers := y15d14ParseInput(input)

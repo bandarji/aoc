@@ -1,25 +1,10 @@
 package adventofcode
 
 import (
-	"fmt"
 	"math"
 )
 
 const y15d20Input string = "34000000"
-
-type Y15D20 struct{}
-
-func (d *Y15D20) GetInput(year, day int) string {
-	return y15d20Input
-}
-
-func (d *Y15D20) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d20(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D20) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d20(d.GetInput(year, day), 2))
-}
 
 func y15d20(input string, part int) (house int) {
 	leastPresents := strToInt(input)

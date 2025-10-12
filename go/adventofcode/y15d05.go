@@ -5,20 +5,6 @@ import (
 	"strings"
 )
 
-type Y15D05 struct{}
-
-func (d *Y15D05) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D05) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d05(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D05) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d05(d.GetInput(year, day), 2))
-}
-
 func y15d05(input string, part int) (nice int) {
 	input = strings.TrimRight(input, "\n")
 	for s := range strings.SplitSeq(input, "\n") {

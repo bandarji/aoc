@@ -4,20 +4,6 @@ import "fmt"
 
 type y15d03coords map[string]int
 
-type Y15D03 struct{}
-
-func (d *Y15D03) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D03) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d03p1(d.GetInput(year, day)))
-}
-
-func (d *Y15D03) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d03p2(d.GetInput(year, day)))
-}
-
 func y15d03p1(input string) (houses int) {
 	coords := y15d03coords{"0-0": 1}
 	visitHouses(&coords, input)

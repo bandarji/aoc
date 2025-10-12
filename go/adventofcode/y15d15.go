@@ -10,20 +10,6 @@ PeanutButter: capacity -1, durability 3, flavor 0, texture 0, calories 1
 Frosting: capacity 0, durability -1, flavor 4, texture 0, calories 6
 Sugar: capacity -1, durability 0, flavor 0, texture 2, calories 8`
 
-type Y15D15 struct{}
-
-func (d *Y15D15) GetInput(year, day int) string {
-	return y15d15Input
-}
-
-func (d *Y15D15) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d15(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D15) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d15(d.GetInput(year, day), 2))
-}
-
 func y15d15(input string, part int) (answer int) {
 	ingredients := y15d15ReadIngredients(input)
 	bestScore, bestCalScore := 0, 0

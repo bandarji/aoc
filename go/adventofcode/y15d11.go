@@ -1,25 +1,10 @@
 package adventofcode
 
 import (
-	"fmt"
 	"strings"
 )
 
 const y15d11input string = "hepxcrrq"
-
-type Y15D11 struct{}
-
-func (d *Y15D11) GetInput(year, day int) string {
-	return y15d11input
-}
-
-func (d *Y15D11) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %s", year, day, y15d11(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D11) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %s", year, day, y15d11(d.GetInput(year, day), 2))
-}
 
 func y15d11(input string, part int) string {
 	for part > 0 {

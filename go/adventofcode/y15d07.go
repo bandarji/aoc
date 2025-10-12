@@ -1,26 +1,9 @@
 package adventofcode
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
-
-// const y15d07InterestingWire string = "a"
-
-type Y15D07 struct{}
-
-func (d *Y15D07) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D07) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d07(d.GetInput(year, day), "a", 1))
-}
-
-func (d *Y15D07) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d07(d.GetInput(year, day), "a", 2))
-}
 
 func y15d07(input string, wire string, part int) int {
 	if len(input) == 0 {

@@ -1,26 +1,11 @@
 package adventofcode
 
 import (
-	"fmt"
 	"math/rand"
 	"sort"
 	"strings"
 	"time"
 )
-
-type Y15D19 struct{}
-
-func (d *Y15D19) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D19) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d19(d.GetInput(year, day), 1))
-}
-
-func (d *Y15D19) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d19(d.GetInput(year, day), 2))
-}
 
 func y15d19(input string, part int) (answer int) {
 	replacements, molecule := y15d19ReadInput(input)

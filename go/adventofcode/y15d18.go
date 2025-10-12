@@ -1,23 +1,8 @@
 package adventofcode
 
 import (
-	"fmt"
 	"strings"
 )
-
-type Y15D18 struct{}
-
-func (d *Y15D18) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D18) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d18(d.GetInput(year, day), 100, 1))
-}
-
-func (d *Y15D18) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d18(d.GetInput(year, day), 100, 2))
-}
 
 func y15d18(input string, steps int, part int) (answer int) {
 	grid := y15d18MakeGrid(input)

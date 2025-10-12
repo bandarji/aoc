@@ -41,20 +41,6 @@ type y15d21ShopInventory struct {
 	weapons, armor, rings []y15d21Item
 }
 
-type Y15D21 struct{}
-
-func (d *Y15D21) GetInput(year, day int) string {
-	return readContent(formatFilename(year, day))
-}
-
-func (d *Y15D21) Part1(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d", year, day, y15d21(d.GetInput(year, day), y15d21StartingHP, 1))
-}
-
-func (d *Y15D21) Part2(year, day int) string {
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d", year, day, y15d21(d.GetInput(year, day), y15d21StartingHP, 2))
-}
-
 func y15d21(input string, startingHP, part int) (answer int) {
 	shop := y15d21ReadShop()
 	boss := y15d21ReadBoss(input)
