@@ -1,7 +1,6 @@
 package adventofcode
 
 import (
-	"strconv"
 	"strings"
 )
 
@@ -31,16 +30,16 @@ func y15d23ProcessInstructions(instructions []string, register string, part int)
 			registers[fields[1]]++
 			index++
 		case "jmp":
-			index += y15d23AtoI(fields[1])
+			index += strToInt(fields[1])
 		case "jie":
 			if registers[fields[1]]%2 == 0 {
-				index += y15d23AtoI(fields[2])
+				index += strToInt(fields[2])
 			} else {
 				index++
 			}
 		case "jio":
 			if registers[fields[1]] == 1 {
-				index += y15d23AtoI(fields[2])
+				index += strToInt(fields[2])
 			} else {
 				index++
 			}
@@ -48,10 +47,4 @@ func y15d23ProcessInstructions(instructions []string, register string, part int)
 	}
 	answer = registers[register]
 	return
-}
-
-func y15d23AtoI(s string) int {
-	s = strings.ReplaceAll(s, "+", "")
-	i, _ := strconv.Atoi(s)
-	return i
 }
