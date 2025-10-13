@@ -1,50 +1,24 @@
 package adventofcode
 
-import (
-	"testing"
-)
+import "testing"
 
-func TestY15D04_Part1(t *testing.T) {
+func Test_y15d04(t *testing.T) {
 	type args struct {
-		year int
-		day  int
+		input  string
+		zeroes int
 	}
 	tests := []struct {
-		name string
-		d    *Y15D04
-		args args
-		want string
+		name       string
+		args       args
+		wantNumber int
 	}{
-		{"test 1", &Y15D04{}, args{2015, 4}, "Year=2015 Day=04 Part 1: 282749"},
+		{"test p1", args{"abcdef", 5}, 609_043},
+		{"test p2", args{"pqrstuv", 5}, 1_048_970},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			d := &Y15D04{}
-			if got := d.Part1(tt.args.year, tt.args.day); got != tt.want {
-				t.Errorf("Y15D04.Part1() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestY15D04_Part2(t *testing.T) {
-	type args struct {
-		year int
-		day  int
-	}
-	tests := []struct {
-		name string
-		d    *Y15D04
-		args args
-		want string
-	}{
-		{"test 1", &Y15D04{}, args{2015, 4}, "Year=2015 Day=04 Part 2: 9962624"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			d := &Y15D04{}
-			if got := d.Part2(tt.args.year, tt.args.day); got != tt.want {
-				t.Errorf("Y15D04.Part2() = %v, want %v", got, tt.want)
+			if gotNumber := y15d04(tt.args.input, tt.args.zeroes); gotNumber != tt.wantNumber {
+				t.Errorf("y15d04() = %v, want %v", gotNumber, tt.wantNumber)
 			}
 		})
 	}
