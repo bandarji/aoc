@@ -406,3 +406,19 @@ func (d *Y15D25) Part1(year, day int) string {
 func (d *Y15D25) Part2(year, day int) string {
 	return "2015 Complete!"
 }
+
+type Y16D01 struct{}
+
+func (d *Y16D01) GetInput(year, day int) string {
+	return readContent(formatFilename(year, day))
+}
+
+func (d *Y16D01) Part1(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y16d01(d.GetInput(year, day), 1), time.Since(start))
+}
+
+func (d *Y16D01) Part2(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d01(d.GetInput(year, day), 2), time.Since(start))
+}
