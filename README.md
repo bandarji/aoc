@@ -18,11 +18,15 @@ me fear for my life. :kissing_heart:
 | 2019 |  2 | C - wrote solution in 2020 |
 | 2018 |  0 | Did not participate |
 | 2017 |  0 | Did not participate |
-| 2016 | 23 | Go - written years later |
-| 2015 | 20 | Go, Rust and Python - written years later |
+| 2016 | 23 | Go |
+| 2015 | 50 | Go, Rust and Python |
 
-I keep planning to go back and complete all prior years, but life and time
-get in the way of that fun. I enjoy and financially support Advent of Code,
-looking forward to each year's puzzles and accompanying stories.
+## Completing All Years
+
+I plan to complete all years' puzzles with Go (maybe revisit with Rust).
+
+### 2015 Done
+
+![AOC 2015 Complete](assets/blog-aoc-2015-complete.png)
 
 END OF LINE
