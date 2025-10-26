@@ -502,3 +502,19 @@ func (d *Y16D06) Part2(year, day int) string {
 	start := time.Now()
 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %s (%v)", year, day, y16d06(d.GetInput(year, day), 2), time.Since(start))
 }
+
+type Y16D07 struct{}
+
+func (d *Y16D07) GetInput(year, day int) string {
+	return readContent(formatFilename(year, day))
+}
+
+func (d *Y16D07) Part1(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y16d07(d.GetInput(year, day), 1), time.Since(start))
+}
+
+func (d *Y16D07) Part2(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d07(d.GetInput(year, day), 2), time.Since(start))
+}
