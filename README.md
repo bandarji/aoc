@@ -60,10 +60,6 @@ github.com/bandarji/aoc/adventofcode/y16d07.go:75:  y16d07IsSSL         100.0%
 github.com/bandarji/aoc/adventofcode/y16d07.go:87:  y16d07FindABAs      100.0%
 ```
 
-I typically cannot solve these in real time because by the end of the first
-week my wife transitions from faces to foot tapping to stern words to making
-me fear for my life. :kissing_heart:
-
 # Progress
 
 | Year | Stars | Notes |
