@@ -38,8 +38,6 @@ func y16d12(input string, part int) (answer int) {
 			} else {
 				if strToInt(fields[1]) != 0 {
 					cursor += strToInt(fields[2])
-				} else {
-					cursor++
 				}
 			}
 		}
