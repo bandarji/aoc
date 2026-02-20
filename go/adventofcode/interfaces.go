@@ -614,3 +614,19 @@ func (d *Y16D13) Part2(year, day int) string {
 	start := time.Now()
 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d13(d.GetInput(year, day), y16d13DestinationX, y16d13DestinationY, 2), time.Since(start))
 }
+
+type Y16D14 struct{}
+
+func (d *Y16D14) GetInput(year, day int) string {
+	return y16d14Salt
+}
+
+func (d *Y16D14) Part1(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y16d14(d.GetInput(year, day), 1), time.Since(start))
+}
+
+func (d *Y16D14) Part2(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d14(d.GetInput(year, day), 2), time.Since(start))
+}
