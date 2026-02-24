@@ -10,26 +10,6 @@ import (
 const VOWELS string = "aeiou"
 const ME string = "bandarji"
 
-type DayRunner interface {
-	GetInput(year, day int) string
-	Part1(year, day int) string
-	Part2(year, day int) string
-}
-
-type AOCDayNoInput struct{}
-
-func (d *AOCDayNoInput) GetInput() string {
-	return ""
-}
-
-func (d *AOCDayNoInput) Part1(year, day int) string {
-	return fmt.Sprintf("Year %d Day %02d Part 1: Not yet implemented", year, day)
-}
-
-func (d *AOCDayNoInput) Part2(year, day int) string {
-	return fmt.Sprintf("Year %d Day %02d Part 2: Not yet implemented", year, day)
-}
-
 func inputFound(filename string) bool {
 	if _, err := os.Stat(filename); err == nil {
 		return true
@@ -139,6 +119,8 @@ func NewAOCDay2016(day int) (DayRunner, error) {
 		return &Y16D13{}, nil
 	case 14:
 		return &Y16D14{}, nil
+	case 15:
+		return &Y16D15{}, nil
 	default:
 		return nil, fmt.Errorf("no day runner for year 2016, day %d", day)
 	}
