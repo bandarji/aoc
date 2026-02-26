@@ -10,18 +10,13 @@ const y16d17Input string = "mmsxrhfx"
 const y16d17DestinationX int = 3
 const y16d17DestinationY int = 3
 
-func y16d17(input string, part int) (answer string) {
-	answer = y16d17MD5BFS(input, part)
-	return
-}
-
 type y16d17Room struct {
 	point image.Point
 	path  string
 	steps int
 }
 
-func y16d17MD5BFS(input string, part int) string {
+func y16d17(input string, part int) string {
 	longestPath := ""
 	q := []y16d17Room{{point: image.Point{0, 0}, path: input, steps: 0}}
 	for len(q) > 0 {

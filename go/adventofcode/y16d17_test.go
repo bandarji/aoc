@@ -2,7 +2,7 @@ package adventofcode
 
 import "testing"
 
-func Test_y16d17MD5BFS(t *testing.T) {
+func Test_y16d17(t *testing.T) {
 	type args struct {
 		input string
 		part  int
@@ -21,7 +21,7 @@ func Test_y16d17MD5BFS(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := y16d17MD5BFS(tt.args.input, tt.args.part); got != tt.want {
+			if got := y16d17(tt.args.input, tt.args.part); got != tt.want {
 				t.Errorf("y16d17MD5BFS() = %v, want %v", got, tt.want)
 			}
 		})
