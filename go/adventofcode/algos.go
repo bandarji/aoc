@@ -1,5 +1,11 @@
 package adventofcode
 
+import (
+	"fmt"
+	"math/rand"
+	"strings"
+)
+
 func combinationsInt(ints []int, n int) [][]int {
 	combos := [][]int{}
 	for i := 0; i < len(ints); i++ {
@@ -35,4 +41,15 @@ func permutations(items []string, n int, result *[][]string) {
 			}
 		}
 	}
+}
+
+// shuffleIndexes returns a shuffled list of indexes and a
+// string representation of the indexes separated by commas (good for hashing)
+func shuffleIndexes(n int) ([]int, string) {
+	sb := strings.Builder{}
+	shuffledIndexes := rand.Perm(n)
+	for _, index := range shuffledIndexes {
+		sb.WriteString(fmt.Sprintf("%d,", index))
+	}
+	return shuffledIndexes, strings.TrimSuffix(sb.String(), ",")
 }
