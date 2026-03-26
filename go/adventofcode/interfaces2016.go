@@ -365,10 +365,10 @@ func (d *Y16D23) GetInput(year, day int) string {
 
 func (d *Y16D23) Part1(year, day int) string {
 	start := time.Now()
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y16d23(d.GetInput(year, day), y16d23Registers), time.Since(start))
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y16d23(d.GetInput(year, day), y16d23RegistersPart1), time.Since(start))
 }
 
 func (d *Y16D23) Part2(year, day int) string {
 	start := time.Now()
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d23(d.GetInput(year, day), y16d23Registers), time.Since(start))
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y16d23(d.GetInput(year, day), y16d23RegistersPart2), time.Since(start))
 }
