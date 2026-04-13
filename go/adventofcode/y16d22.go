@@ -18,7 +18,52 @@ func y16d22(input string, part int) int {
 }
 
 func y16d22PartTwo(filesystems []y16d22FS) int {
-	return 0
+	// find the storting coordinates (zero used space)
+	x, y := 0, 0
+	maxX, maxY := 0, 0
+	for _, fs := range filesystems {
+		if fs.x > maxX {
+			maxX = fs.x
+		}
+		if fs.y > maxY {
+			maxY = fs.y
+		}
+		if fs.used == 0 {
+			x = fs.x
+			y = fs.y
+		}
+	}
+	// log.Println("starting coordinates", x, y)
+
+	grid := y16d22MakeGrid(filesystems)
+
+	steps := 0
+	for x != maxX {
+		if y > 0 {
+			if grid[[2]int{x, y - 1}].used < 100 {
+				y--
+			} else {
+				x--
+			}
+		} else if y == 0 {
+			x++
+		}
+		steps++
+	}
+	x--
+	for x != 0 {
+		steps += 5
+		x--
+	}
+	return steps
+}
+
+func y16d22MakeGrid(filesystems []y16d22FS) (grid map[[2]int]y16d22FS) {
+	grid = map[[2]int]y16d22FS{}
+	for _, fs := range filesystems {
+		grid[[2]int{fs.x, fs.y}] = fs
+	}
+	return
 }
 
 func y16d22PartOne(filesystems []y16d22FS) int {
