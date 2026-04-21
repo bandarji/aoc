@@ -1,93 +1,72 @@
 package adventofcode
 
 import (
+	"fmt"
+	"image"
 	"log"
 	"strings"
 )
 
-func y16d24(input string, part int) int {
-	grid := y16d24ParseInput(input)
-	graph := y16d24DetermineDistances(grid)
-	_ = graph
-	// y16d24DFS(graph, map[int]bool{0: true}, 0, part)
-	return 0
+func y16d24(input string, part int) (answer int) {
+	start, stops, path := y16d24ParseInput(input)
+	// log.Println("start", start, "stops", stops)
+	answer = y16d24FindShortestPath(start, stops, path, part)
+	return
 }
 
-func y16d24DFS(graph [][]int, visited map[int]bool, current, part int) int {
-	if len(visited) == len(graph) {
-		if part == 2 {
-			return graph[current][0]
+type y16d24State struct {
+	pos          image.Point
+	steps        int
+	destinations string
+}
+
+func y16d24FindShortestPath(start image.Point, stops, path map[image.Point]bool, part int) (steps int) {
+	visited := map[image.Point]bool{}
+	destinations := ""
+	q := []y16d24State{{pos: start, steps: 0, destinations: destinations}}
+	for len(q) > 0 {
+		current := q[0]
+		q = q[1:]
+		// log.Println("current", current)
+		if visited[current.pos] {
+			continue
 		}
-		return 0
-	}
-	minDist := 1 << 31
-	for i, value := range graph[current] {
-		if !visited[i] {
-			visited[i] = true
-			dist := value + y16d24DFS(graph, visited, i, part)
-			minDist = min(minDist, dist)
-			delete(visited, i)
+		visited[current.pos] = true
+		if len(current.destinations) == len(stops) {
+			log.Println("current", current.destinations, "stops", stops, "steps", current.steps)
+			steps = current.steps
+			break
 		}
-	}
-	return minDist
-}
-
-func y16d24ParseInput(input string) [][]string {
-	grid := [][]string{}
-	for line := range strings.SplitSeq(input, "\n") {
-		grid = append(grid, strings.Split(line, ""))
-	}
-	return grid
-}
-
-func y16d24DetermineDistances(grid [][]string) (graph [][]int) {
-	graph = [][]int{}
-	for r, row := range grid {
-		for c, cell := range row {
-			if strings.ContainsAny(cell, "0123456789") {
-				robotPoint := cell
-				distancesFromRobot := y16d24BFSRobots(grid, [2]int{r, c})
-				if graph == nil {
-					for i := range len(distancesFromRobot) {
-						_ = i
-						graph = append(graph, make([]int, len(distancesFromRobot)))
-					}
+		for _, dir := range [4]image.Point{{0, 1}, {1, 0}, {0, -1}, {-1, 0}} {
+			next := current.pos.Add(dir)
+			if path[next] {
+				destinations := current.destinations
+				if stops[next] {
+					destinations = fmt.Sprintf("%s%d", destinations, next)
 				}
-				graph[strToInt(robotPoint)] = distancesFromRobot
+				q = append(q, y16d24State{pos: next, steps: current.steps + 1, destinations: destinations})
 			}
 		}
 	}
 	return
 }
 
-func y16d24BFSRobots(grid [][]string, start [2]int) map[string]int {
-	toDistance := map[string]int{
-		grid[start[0]][start[1]]: 0,
-	}
-	visited := map[[2]int]bool{}
-	q := [][3]int{{start[0], start[1], 0}}
-	for len(q) > 0 {
-		log.Printf("map: %v", toDistance)
-		curr := q[0]
-		q = q[1:]
-		r, c, d := curr[0], curr[1], curr[2]
-		if visited[[2]int{r, c}] {
-			continue
-		}
-		visited[[2]int{r, c}] = true
-		if strings.ContainsAny(grid[r][c], "0123456789") {
-			toDistance[grid[r][c]] = d
-		}
-		for _, dx := range [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}} {
-			nr, nc := r+dx[0], c+dx[1]
-			if grid[nr][nc] != "#" {
-				q = append(q, [3]int{nr, nc, d + 1})
+func y16d24ParseInput(input string) (image.Point, map[image.Point]bool, map[image.Point]bool) {
+	stops := map[image.Point]bool{}
+	start := image.Point{}
+	path := map[image.Point]bool{}
+	for y, line := range strings.Split(input, "\n") {
+		for x, cell := range line {
+			switch cell {
+			case '0':
+				start = image.Point{x, y}
+				stops[image.Point{x, y}] = true
+			case '1', '2', '3', '4', '5', '6', '7', '8', '9':
+				stops[image.Point{x, y}] = true
+			case '.':
+				path[image.Point{x, y}] = true
 			}
 		}
 	}
-	distances := map[string]int{}
-	for robot, distance := range toDistance {
-		distances[robot] = distance
-	}
-	return distances
+	return start, stops, path
 }

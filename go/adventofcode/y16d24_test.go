@@ -30,13 +30,3 @@ func Test_y16d24(t *testing.T) {
 		})
 	}
 }
-
-func Test_y16d24ParseInput(t *testing.T) {
-	grid := y16d24ParseInput(y16d24TestInput)
-	if len(grid) != 5 {
-		t.Errorf("y16d24ParseInput() = %v, want %v", grid, 5)
-	}
-	if len(grid[0]) != 11 {
-		t.Errorf("y16d24ParseInput() = %v, want %v", grid, 11)
-	}
-}
