@@ -3,15 +3,8 @@ package adventofcode
 import (
 	"fmt"
 	"image"
-	"log"
 	"strings"
 )
-
-const Ugh string = `###########
-#0.1.....2#
-#.#######.#
-#4.......3#
-###########`
 
 type y16d24AirDuct struct {
 	start image.Point
@@ -41,9 +34,6 @@ func (s y16d24State) encode() string {
 
 func y16d24Spelunk(duct y16d24AirDuct, part int) int {
 	cache := map[string]bool{}
-	if part == 2 {
-		return -1
-	}
 	q := []y16d24State{{pos: duct.start, steps: 0, checkpoints: map[image.Point]bool{duct.start: true}}}
 	for len(q) > 0 {
 		current := q[0]
@@ -54,7 +44,12 @@ func y16d24Spelunk(duct y16d24AirDuct, part int) int {
 		}
 		cache[encoded] = true
 		if len(current.checkpoints) == len(duct.stops) {
-			return current.steps
+			if part == 1 {
+				return current.steps
+			}
+			if current.pos == duct.start {
+				return current.steps
+			}
 		}
 		for _, dir := range [4]image.Point{{0, 1}, {1, 0}, {0, -1}, {-1, 0}} {
 			next := current.pos.Add(dir)
@@ -70,8 +65,7 @@ func y16d24Spelunk(duct y16d24AirDuct, part int) int {
 			}
 		}
 	}
-	log.Println("no solution found")
-	return 0
+	return -1
 }
 
 func y16d24ParseInput(input string) y16d24AirDuct {

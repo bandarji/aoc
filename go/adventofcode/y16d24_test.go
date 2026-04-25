@@ -21,6 +21,7 @@ func Test_y16d24(t *testing.T) {
 		want int
 	}{
 		{"test p1", args{input: y16d24TestInput, part: 1}, 14},
+		{"test p2", args{input: y16d24TestInput, part: 2}, 20},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
