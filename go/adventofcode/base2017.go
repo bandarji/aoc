@@ -6,8 +6,8 @@ func NewAOCDay2017(day int) (DayRunner, error) {
 	switch day {
 	case 1:
 		return &Y17D01{}, nil
-	// case 2:
-	// 	return &Y17D02{}, nil
+	case 2:
+		return &Y17D02{}, nil
 	// case 3:
 	// 	return &Y17D03{}, nil
 	// case 4:
