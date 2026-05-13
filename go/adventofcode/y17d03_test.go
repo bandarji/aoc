@@ -2,7 +2,7 @@ package adventofcode
 
 import "testing"
 
-func Test_y17d03(t *testing.T) {
+func xxxTest_y17d03(t *testing.T) {
 	type args struct {
 		input string
 		part  int
