@@ -2,7 +2,7 @@ package adventofcode
 
 import "testing"
 
-func xxxTest_y17d03(t *testing.T) {
+func Test_y17d03(t *testing.T) {
 	type args struct {
 		input string
 		part  int
@@ -12,10 +12,8 @@ func xxxTest_y17d03(t *testing.T) {
 		args args
 		want int
 	}{
-		{"test square 1", args{input: "1", part: 1}, 0},
-		{"test square 12", args{input: "12", part: 1}, 3},
-		{"test square 23", args{input: "23", part: 1}, 2},
-		{"test square 1024", args{input: "1024", part: 1}, 31},
+		{"test 1", args{input: "325489", part: 1}, 552},
+		{"test 2", args{input: "325489", part: 2}, 330785},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
