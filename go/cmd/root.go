@@ -25,9 +25,19 @@ func processParams(cmd *cobra.Command, params *runParams) {
 }
 
 func solve(params runParams) {
-	if data, err := adventofcode.NewAOCDay(params.year, params.day); err == nil {
-		adventofcode.RunDay(data, params.year, params.day)
+	if params.day == 0 {
+		for day := 1; day <= 25; day++ {
+			if data, err := adventofcode.NewAOCDay(params.year, day); err == nil {
+				adventofcode.RunDay(data, params.year, day)
+			} else {
+				fmt.Println(err)
+			}
+		}
 	} else {
-		fmt.Println(err)
+		if data, err := adventofcode.NewAOCDay(params.year, params.day); err == nil {
+			adventofcode.RunDay(data, params.year, params.day)
+		} else {
+			fmt.Println(err)
+		}
 	}
 }
