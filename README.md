@@ -45,6 +45,39 @@ Year=2016 Day=07 Part 1: 105 (13.804417ms)
 Year=2016 Day=07 Part 2: 258 (10.719625ms)
 ```
 
+To run all days for one year, use `DAY=0`.
+
+```
+> make run YEAR=2016 DAY=0
+Year=2016 Day=01 Part 1: 243 (489.625µs)
+Year=2016 Day=01 Part 2: 142 (360.583µs)
+Year=2016 Day=02 Part 1: 38961 (162.667µs)
+Year=2016 Day=02 Part 2: 46C92 (127.041µs)
+Year=2016 Day=03 Part 1: 982 (522µs)
+Year=2016 Day=03 Part 2: 1826 (487.625µs)
+Year=2016 Day=04 Part 1: 245102 (4.704791ms)
+Year=2016 Day=04 Part 2: 324 (2.766459ms)
+Year=2016 Day=05 Part 1: 1a3099aa (5.68779175s)
+Year=2016 Day=05 Part 2: 694190cd (8.923914542s)
+Year=2016 Day=06 Part 1: mlncjgdg (841.916µs)
+Year=2016 Day=06 Part 2: bipjaytb (352.792µs)
+Year=2016 Day=07 Part 1: 105 (6.849209ms)
+Year=2016 Day=07 Part 2: 258 (7.119709ms)
+Year=2016 Day=08 Part 1: 121 (218.375µs)
+Year=2016 Day=08 Part 2:
+###..#..#.###..#..#..##..####..##..####..###.#....
+#..#.#..#.#..#.#..#.#..#.#....#..#.#......#..#....
+#..#.#..#.#..#.#..#.#....###..#..#.###....#..#....
+###..#..#.###..#..#.#....#....#..#.#......#..#....
+#.#..#..#.#.#..#..#.#..#.#....#..#.#......#..#....
+#..#..##..#..#..##...##..####..##..####..###.####.
+
+ (176.041µs)
+Year=2016 Day=09 Part 1: 98135 (38.875µs)
+Year=2016 Day=09 Part 2: 10964557606 (609.792µs)
+[TRUNCATED]
+```
+
 ## Tests
 
 Using `make test` will provide test and coverage output. All functions adhere
