@@ -27,6 +27,7 @@ func Test_y17d07(t *testing.T) {
 		wantName string
 	}{
 		{"test part 1", args{y17d07TestInput, 1}, "tknk"},
+		{"test part 2", args{y17d07TestInput, 2}, "60"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
