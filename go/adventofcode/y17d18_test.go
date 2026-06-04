@@ -13,6 +13,14 @@ jgz a -1
 set a 1
 jgz a -2`
 
+const y17d18TestInput2 string = `snd 1
+snd 2
+snd p
+rcv a
+rcv b
+rcv c
+rcv d`
+
 func Test_y17d18(t *testing.T) {
 	type args struct {
 		input string
@@ -24,6 +32,7 @@ func Test_y17d18(t *testing.T) {
 		wantFrequency int
 	}{
 		{"test p1", args{input: y17d18TestInput, part: 1}, 4},
+		{"test p2", args{input: y17d18TestInput2, part: 2}, 3},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
