@@ -4,23 +4,73 @@ import (
 	"strings"
 )
 
-const XXX string = `
-set a 1
-add a 2
-mul a a
-mod a 5
-snd a
-set a 0
-rcv a
-jgz a -1
-set a 1
-jgz a -2
-The first four instructions set a to 1, add 2 to it, square it, and then set it to itself modulo 5, resulting in a value of 4.
-Then, a sound with frequency 4 (the value of a) is played.
-After that, a is set to 0, causing the subsequent rcv and jgz instructions to both be skipped (rcv because a is 0, and jgz because a is not greater than 0).
-Finally, a is set to 1, causing the next jgz instruction to activate, jumping back two instructions to another jump, which jumps again to the rcv, which ultimately triggers the recover operation.
-At the time the recover operation is executed, the frequency of the last sound played is 4.
-`
+type y17d18Program struct {
+	registers                   map[string]int
+	cursor, id, frequency, sent int
+	q                           []int
+}
+
+func y17d18(input string, part int) int {
+	programs := [2]y17d18Program{
+		{registers: map[string]int{"p": 0}, cursor: 0, id: 0, q: []int{}, sent: 0, frequency: 0},
+		{registers: map[string]int{"p": 1}, cursor: 0, id: 1, q: []int{}, sent: 0, frequency: 0},
+	}
+	instructions := strings.Split(input, "\n")
+	insCount := len(instructions)
+	answer := 0
+	if part == 1 {
+		programs[1].cursor = 3 * len(instructions)
+	}
+	for answer == 0 {
+		for id := range 2 {
+			other := (id + 1)
+			other %= 2
+			skip := false
+			if programs[id].cursor >= insCount {
+				continue
+			}
+			fields := strings.Fields(instructions[programs[id].cursor])
+			switch fields[0] {
+			case "set":
+				programs[id].registers[fields[1]] = y17d18ValueOrRegister(programs[id].registers, fields[2])
+			case "add":
+				programs[id].registers[fields[1]] += y17d18ValueOrRegister(programs[id].registers, fields[2])
+			case "mul":
+				programs[id].registers[fields[1]] *= y17d18ValueOrRegister(programs[id].registers, fields[2])
+			case "mod":
+				programs[id].registers[fields[1]] %= y17d18ValueOrRegister(programs[id].registers, fields[2])
+			case "snd":
+				programs[id].frequency = programs[id].registers[fields[1]]
+				programs[other].q = append(programs[other].q, programs[id].frequency)
+				programs[id].sent++
+			case "rcv":
+				if part == 1 && programs[id].registers[fields[1]] != 0 {
+					answer = programs[id].frequency
+				}
+				if part == 2 {
+					if len(programs[id].q) == 0 && len(programs[other].q) == 0 {
+						answer = programs[1].sent
+					}
+					if len(programs[id].q) > 0 {
+						programs[id].registers[fields[1]] = programs[id].q[0]
+						programs[id].q = programs[id].q[1:]
+					} else {
+						skip = true
+					}
+				}
+			case "jgz":
+				if y17d18ValueOrRegister(programs[id].registers, fields[1]) > 0 {
+					programs[id].cursor += y17d18ValueOrRegister(programs[id].registers, fields[2])
+					skip = true
+				}
+			}
+			if !skip {
+				programs[id].cursor++
+			}
+		}
+	}
+	return answer
+}
 
 func y17d18ValueOrRegister(registers map[string]int, possible string) (response int) {
 	if len(possible) == 1 && possible[0] >= 'a' && possible[0] <= 'z' {
@@ -29,41 +79,4 @@ func y17d18ValueOrRegister(registers map[string]int, possible string) (response 
 		response = strToInt(possible)
 	}
 	return
-}
-
-func y17d18(input string, part int) (frequency int) {
-	registers := map[string]int{}
-	instructions := strings.Split(input, "\n")
-	insCount := len(instructions)
-	cursor, frequency := 0, 0
-	for cursor < insCount {
-		instruction := instructions[cursor]
-		fields := strings.Fields(instruction)
-		firstRegister := fields[1]
-		switch fields[0] {
-		case "set":
-			registers[firstRegister] = y17d18ValueOrRegister(registers, fields[2])
-		case "add":
-			registers[firstRegister] += y17d18ValueOrRegister(registers, fields[2])
-		case "mul":
-			registers[firstRegister] *= y17d18ValueOrRegister(registers, fields[2])
-		case "mod":
-			registers[firstRegister] %= y17d18ValueOrRegister(registers, fields[2])
-		case "snd":
-			// log.Printf("%s - %+v", instruction, registers)
-			frequency = registers[firstRegister]
-		case "rcv":
-			if registers[firstRegister] != 0 {
-				return frequency
-			}
-		case "jgz":
-			if y17d18ValueOrRegister(registers, firstRegister) > 0 {
-				cursor += y17d18ValueOrRegister(registers, fields[2])
-				continue
-			}
-		}
-		// log.Printf("cursor: %d, frequency: %d, registers: %v", cursor, frequency, registers)
-		cursor++
-	}
-	return frequency
 }
