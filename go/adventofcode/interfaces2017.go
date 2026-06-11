@@ -157,12 +157,12 @@ func (d *Y17D10) GetInput(year, day int) string {
 
 func (d *Y17D10) Part1(year, day int) string {
 	start := time.Now()
-	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y17d10(d.GetInput(year, day), 256, 1), time.Since(start))
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %s (%v)", year, day, y17d10(d.GetInput(year, day), 256, 1), time.Since(start))
 }
 
 func (d *Y17D10) Part2(year, day int) string {
 	start := time.Now()
-	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y17d10(d.GetInput(year, day), 256, 2), time.Since(start))
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %s (%v)", year, day, y17d10(d.GetInput(year, day), 256, 2), time.Since(start))
 }
 
 // type Y17D11 struct{}
