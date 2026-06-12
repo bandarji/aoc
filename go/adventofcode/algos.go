@@ -53,3 +53,17 @@ func shuffleIndexes(n int) ([]int, string) {
 	}
 	return shuffledIndexes, strings.TrimSuffix(sb.String(), ",")
 }
+
+func absInt(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
+
+func absFloat(x float64) float64 {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
