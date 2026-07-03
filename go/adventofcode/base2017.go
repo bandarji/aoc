@@ -32,8 +32,8 @@ func NewAOCDay2017(day int) (DayRunner, error) {
 	// 	return &Y17D13{}, nil
 	// case 14:
 	// 	return &Y17D14{}, nil
-	// case 15:
-	// 	return &Y17D15{}, nil
+	case 15:
+		return &Y17D15{}, nil
 	// case 16:
 	// 	return &Y17D16{}, nil
 	// case 17:
