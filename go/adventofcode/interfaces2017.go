@@ -357,21 +357,21 @@ func (d *Y17D18) Part2(year, day int) string {
 // 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, Y17d22(d.GetInput(year, day), 2), time.Since(start))
 // }
 
-// type Y17D23 struct{}
+type Y17D23 struct{}
 
-// func (d *Y17D23) GetInput(year, day int) string {
-// 	return readContent(formatFilename(year, day))
-// }
+func (d *Y17D23) GetInput(year, day int) string {
+	return readContent(formatFilename(year, day))
+}
 
-// func (d *Y17D23) Part1(year, day int) string {
-// 	start := time.Now()
-// 	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, Y17d23(d.GetInput(year, day), Y17d23RegistersPart1), time.Since(start))
-// }
+func (d *Y17D23) Part1(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y17d23(d.GetInput(year, day), 1), time.Since(start))
+}
 
-// func (d *Y17D23) Part2(year, day int) string {
-// 	start := time.Now()
-// 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, Y17d23(d.GetInput(year, day), Y17d23RegistersPart2), time.Since(start))
-// }
+func (d *Y17D23) Part2(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y17d23(d.GetInput(year, day), 2), time.Since(start))
+}
 
 // type Y17D24 struct{}
 
