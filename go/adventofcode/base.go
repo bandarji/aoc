@@ -29,6 +29,22 @@ func NewAOCDay(year, day int) (DayRunner, error) {
 		return NewAOCDay2016(day)
 	case 2017:
 		return NewAOCDay2017(day)
+	case 2018:
+		return NewAOCDay2018(day)
+	case 2019:
+		return NewAOCDay2019(day)
+	case 2020:
+		return NewAOCDay2020(day)
+	case 2021:
+		return NewAOCDay2021(day)
+	case 2022:
+		return NewAOCDay2022(day)
+	case 2023:
+		return NewAOCDay2023(day)
+	case 2024:
+		return NewAOCDay2024(day)
+	case 2025:
+		return NewAOCDay2025(day)
 	default:
 		return nil, fmt.Errorf("no day runner for year %d, day %d", year, day)
 	}
