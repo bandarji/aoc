@@ -2,6 +2,7 @@ package adventofcode
 
 import (
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -293,21 +294,24 @@ func (d *Y17D18) Part2(year, day int) string {
 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y17d18(d.GetInput(year, day), 2), time.Since(start))
 }
 
-// type Y17D19 struct{}
+type Y17D19 struct{}
 
-// func (d *Y17D19) GetInput(year, day int) string {
-// 	return "3004953"
-// }
+func (d *Y17D19) GetInput(year, day int) string {
+	if b, err := os.ReadFile(formatFilename(year, day)); err == nil {
+		return string(b)
+	}
+	return ""
+}
 
-// func (d *Y17D19) Part1(year, day int) string {
-// 	start := time.Now()
-// 	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, Y17d19(d.GetInput(year, day), 1), time.Since(start))
-// }
+func (d *Y17D19) Part1(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %s (%v)", year, day, y17d19(d.GetInput(year, day), 1), time.Since(start))
+}
 
-// func (d *Y17D19) Part2(year, day int) string {
-// 	start := time.Now()
-// 	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, Y17d19(d.GetInput(year, day), 2), time.Since(start))
-// }
+func (d *Y17D19) Part2(year, day int) string {
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %s (%v)", year, day, y17d19(d.GetInput(year, day), 2), time.Since(start))
+}
 
 // type Y17D20 struct{}
 
