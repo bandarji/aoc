@@ -105,14 +105,19 @@ github.com/bandarji/aoc/adventofcode/y16d07.go:87:  y16d07FindABAs      100.0%
 | 2020 | (19) 🌟🌟🌟 |
 | 2019 | (02) ⛤ |
 | 2018 | (00) ⛤ |
-| 2017 | (18) 🌟🌟🌟 |
+| 2017 | (50) 🌟🌟🌟🌟🌟 🌟🌟🌟🌟🤩 |
 | 2016 | (50) 🌟🌟🌟🌟🌟 🌟🌟🌟🌟🤩 |
 | 2015 | (50) 🌟🌟🌟🌟🌟 🌟🌟🌟🌟🤩 |
+
+## 2017 Complete!
+
+![AOC 2017 Complete](assets/blog-aoc-2017-complete.png)
+
+## 2016 Complete!
+
+![AOC 2016 Complete](assets/blog-aoc-2016-complete.png)
 
 ## 2015 Complete!
 
 ![AOC 2015 Complete](assets/blog-aoc-2015-complete.png)
 
-## 2016 Complete!
-
-![AOC 2016 Complete](assets/blog-aoc-2016-complete.png)
