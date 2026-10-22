@@ -1,6 +1,10 @@
 package adventofcode
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"time"
+)
 
 type Y18D01 struct{}
 
@@ -9,13 +13,13 @@ func (d *Y18D01) GetInput(year, day int) string {
 }
 
 func (d *Y18D01) Part1(year, day int) string {
-	log.Printf("%d, %02d: not yet implemented.", year, day)
-	return ""
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 1: %d (%v)", year, day, y18d01(d.GetInput(year, day), 1), time.Since(start))
 }
 
 func (d *Y18D01) Part2(year, day int) string {
-	log.Printf("%d, %02d: not yet implemented.", year, day)
-	return ""
+	start := time.Now()
+	return fmt.Sprintf("Year=%d Day=%02d Part 2: %d (%v)", year, day, y18d01(d.GetInput(year, day), 2), time.Since(start))
 }
 
 type Y18D02 struct{}
